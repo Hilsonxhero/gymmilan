@@ -7,9 +7,10 @@ use Inertia\Inertia;
 
 
 
-Route::get('/', function () {
+
+Route::fallback(function () {
     return view('welcome');
-});
+})->name('welcome');
 
 
 // Route::middleware('auth')->group(function () {

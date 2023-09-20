@@ -2,9 +2,10 @@ import './bootstrap';
 import '../css/app.css';
 import '../css/master.css';
 import { createApp, h } from 'vue';
-import { createInertiaApp } from '@inertiajs/vue3';
+import router from "./Router";
 
 import app from "./Layouts/App.vue";
+import '@mdi/font/css/materialdesignicons.css'
 
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
@@ -20,6 +21,6 @@ const vuetify = createVuetify({
     }
 })
 
-const init = createApp(app).use(vuetify);
+const init = createApp(app).use(vuetify).use(router);
 
 init.mount("#app");
