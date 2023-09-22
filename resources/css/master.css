@@ -18,6 +18,22 @@
 
 body {
     font-family: YekanBakh !important;
+    text-align: right !important;
+    direction: rtl !important;
+}
+
+.v-btn {
+    letter-spacing: 0px !important;
+}
+.v-label {
+    transform-origin: right center !important;
+    right: 0 !important;
+}
+input {
+    outline: 0 !important;
     text-align: right;
-    direction: rtl;
+}
+input:focus {
+    outline: 0 !important;
+    box-shadow: none !important;
 }

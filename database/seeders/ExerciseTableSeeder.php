@@ -35,6 +35,6 @@ class ExerciseTableSeeder extends Seeder
             array("name" => "هرمی معکوس"),
             array("name" => "ایزومتریک"),
         );
-        Exercise::query()->createMany($exercises);
+        Exercise::query()->insert($exercises);
     }
 }

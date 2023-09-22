@@ -2,8 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Panel\ExerciseController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Panel\MovementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +25,9 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 Route::prefix('/auth')->group(function () {
     Route::post("login", [AuthenticatedSessionController::class, 'store']);
     Route::post('/register', [RegisteredUserController::class, 'store']);
+});
+
+Route::prefix('/panel')->group(function () {
+    Route::resource('exercises', ExerciseController::class);
+    Route::resource('movements', MovementController::class);
 });

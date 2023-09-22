@@ -21,13 +21,21 @@
                 >
                 </v-list-item>
                 <v-list-item
+                    link
                     prepend-icon="mdi-account"
-                    title="My Account"
-                    value="account"
+                    title="مدیریت نوع تمرینات "
+                    value="exercises"
+                    :to="{ name: 'panel-exercises-index' }"
+                ></v-list-item>
+                <v-list-item
+                    prepend-icon="mdi-account"
+                    title="مدیریت  حرکات "
+                    value="movements"
+                    :to="{ name: 'panel-movements-index' }"
                 ></v-list-item>
                 <v-list-item
                     prepend-icon="mdi-account-group-outline"
-                    title="Users"
+                    title="برنامه ها"
                     value="users"
                 ></v-list-item>
             </v-list>
