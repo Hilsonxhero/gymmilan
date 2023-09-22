@@ -41,5 +41,26 @@ export default {
             name: "panel-movements-edit",
             component: () => import("@/Pages/panel/movements/edit.vue"),
         },
+        // forms
+        {
+            path: "forms",
+            name: "panel-forms-index",
+            component: () => import("@/Pages/panel/forms/index.vue"),
+        },
+        {
+            path: "forms/create",
+            name: "panel-forms-create",
+            component: () => import("@/Pages/panel/forms/create.vue"),
+        },
+        {
+            path: "forms/manage/:id",
+            name: "panel-forms-manage",
+            component: () => import("@/Pages/panel/forms/manage.vue"),
+        },
+        {
+            path: "forms/edit/:id",
+            name: "panel-forms-edit",
+            component: () => import("@/Pages/panel/forms/edit.vue"),
+        },
     ],
 };

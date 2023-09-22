@@ -13,30 +13,31 @@
             <v-divider></v-divider>
 
             <v-list density="compact" nav>
-                <v-list-item
+                <!-- <v-list-item
                     link
                     prepend-icon="mdi-home-city"
                     title="داشبورد"
                     :to="{ name: 'panel dashboard' }"
                 >
-                </v-list-item>
+                </v-list-item> -->
                 <v-list-item
                     link
-                    prepend-icon="mdi-account"
+                    prepend-icon="mdi-weight-lifter"
                     title="مدیریت نوع تمرینات "
                     value="exercises"
                     :to="{ name: 'panel-exercises-index' }"
                 ></v-list-item>
                 <v-list-item
-                    prepend-icon="mdi-account"
+                    prepend-icon="mdi-dumbbell"
                     title="مدیریت  حرکات "
                     value="movements"
                     :to="{ name: 'panel-movements-index' }"
                 ></v-list-item>
                 <v-list-item
-                    prepend-icon="mdi-account-group-outline"
+                    prepend-icon="mdi-form-select"
                     title="برنامه ها"
-                    value="users"
+                    value="forms"
+                    :to="{ name: 'panel-forms-index' }"
                 ></v-list-item>
             </v-list>
         </v-navigation-drawer>

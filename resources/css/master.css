@@ -37,3 +37,25 @@ input:focus {
     outline: 0 !important;
     box-shadow: none !important;
 }
+.vpd-icon-btn {
+    display: none !important;
+}
+.vpd-input-group input {
+    line-height: 44px !important;
+    border-right: 0 !important;
+    border-left: 0 !important;
+    border-top: 0 !important;
+    border-color: #6b7280 !important;
+}
+.invalid-feedback {
+    /* color: red; */
+    color: rgb(var(--v-theme-error));
+    margin-top: 0.3rem;
+    font-size: 12px;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}

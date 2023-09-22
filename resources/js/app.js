@@ -12,6 +12,7 @@ import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+import { initVeeValidate } from "@/Core/Plugins/vee-validate";
 
 const vuetify = createVuetify({
     components,
@@ -23,6 +24,7 @@ const vuetify = createVuetify({
     },
 })
 ApiService.init(app);
+initVeeValidate(app)
 const init = createApp(app).use(vuetify).use(router);
 
 init.mount("#app");
