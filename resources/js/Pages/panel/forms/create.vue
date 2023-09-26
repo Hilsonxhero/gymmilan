@@ -4,12 +4,8 @@
             <div class="mb-6">
                 <h2 class="text-xl">ایجاد برنامه</h2>
             </div>
-            <!-- <v-form
-                ref="formRef"
-                validate-on="submit"
-                @submit.prevent="handleCreate"
-            > -->
-            <Form @submit="handleCreate">
+
+            <Form ref="formRef" @submit="handleCreate">
                 <div class="grid grid-cols-12 gap-2">
                     <div class="col-span-12 lg:col-span-6">
                         <Field

@@ -14,10 +14,7 @@ return new class extends Migration
         Schema::create('workout_program_movements', function (Blueprint $table) {
             $table->id();
             $table->foreignId("workout_program_id")->constrained("workout_programs")->cascadeOnDelete();
-            $table->foreignId("movement_id")->constrained("movements")->cascadeOnDelete();
             $table->string("type");
-            $table->text("value");
-            $table->smallInteger("repeat")->nullable();
             $table->timestamps();
         });
     }

@@ -11,19 +11,11 @@ class WorkoutProgramMovement extends Model
 
     protected $fillable = [
         'workout_program_id',
-        'movement_id',
         'type',
-        'value',
-        'repeat',
     ];
 
     public function workout_program()
     {
         return $this->belongsTo(WorkoutProgram::class);
-    }
-
-    public function movement()
-    {
-        return $this->belongsTo(Movement::class);
     }
 }
