@@ -18,330 +18,35 @@
                         variant="solo-filled"
                     ></v-select>
 
-                    <div
-                        class="grid grid-cols-12 gap-1 mb-4"
-                        v-for="(movement_value, index) in movement_values"
-                        :key="index"
-                    >
-                        <template v-if="form.type.value == '1'">
-                            <div class="col-span-12">
-                                <v-select
-                                    variant="solo-filled"
-                                    single-line
-                                    label="انتخاب نوع تمرین"
-                                    :items="filteredExercises"
-                                    item-title="name"
-                                    no-data-text="موردی وجود ندارد"
-                                    v-model="movement_value.movement_type"
-                                >
-                                    <template v-slot:prepend-item>
-                                        <v-list-item>
-                                            <v-list-item-content>
-                                                <v-text-field
-                                                    v-model="searchTerm"
-                                                    placeholder="جستجو"
-                                                ></v-text-field>
-                                            </v-list-item-content>
-                                        </v-list-item>
-                                        <v-divider class="mt-2"></v-divider>
-                                    </template>
-                                    <template v-slot:item="{ props, item }">
-                                        <v-list-item
-                                            v-bind="props"
-                                        ></v-list-item>
-                                    </template>
-                                </v-select>
-                            </div>
-                            <div class="col-span-12">
-                                <v-select
-                                    variant="solo-filled"
-                                    single-line
-                                    label="انتخاب حرکت"
-                                    :items="filteredMovements"
-                                    item-title="name"
-                                    no-data-text="موردی وجود ندارد"
-                                    v-model="movement_value.movement"
-                                >
-                                    <template v-slot:prepend-item>
-                                        <v-list-item>
-                                            <v-list-item-content>
-                                                <v-text-field
-                                                    v-model="search_movement"
-                                                    placeholder="جستجو"
-                                                ></v-text-field>
-                                            </v-list-item-content>
-                                        </v-list-item>
-                                        <v-divider class="mt-2"></v-divider>
-                                    </template>
-                                    <template v-slot:item="{ props, item }">
-                                        <v-list-item
-                                            v-bind="props"
-                                        ></v-list-item>
-                                    </template>
-                                </v-select>
-                            </div>
-                            <div class="col-span-6">
-                                <Field
-                                    mode="passive"
-                                    name="value"
-                                    v-slot="{ field }"
-                                    label="تعداد"
-                                >
-                                    <v-text-field
-                                        required
-                                        v-bind="field"
-                                        v-model="movement_value.value"
-                                        label="تعداد"
-                                        density="compact"
-                                        single-line
-                                        hide-details="auto"
-                                    ></v-text-field>
-                                </Field>
-                                <div class="invalid-feedback d-block">
-                                    <ErrorMessage name="value" />
-                                </div>
-                            </div>
-                            <div class="col-span-6">
-                                <Field
-                                    mode="passive"
-                                    name="value"
-                                    v-slot="{ field }"
-                                    label="دفعات تکرار"
-                                >
-                                    <v-text-field
-                                        required
-                                        v-bind="field"
-                                        v-model="movement_value.repeat"
-                                        label="دفعات تکرار"
-                                        density="compact"
-                                        single-line
-                                        hide-details="auto"
-                                    ></v-text-field>
-                                </Field>
-                                <div class="invalid-feedback d-block">
-                                    <ErrorMessage name="value" />
-                                </div>
-                            </div>
-                        </template>
-                        <template v-if="form.type.value == '2'">
-                            <div class="col-span-12">
-                                <v-select
-                                    variant="solo-filled"
-                                    single-line
-                                    label="انتخاب نوع تمرین"
-                                    :items="filteredExercises"
-                                    item-title="name"
-                                    no-data-text="موردی وجود ندارد"
-                                    v-model="movement_value.movement_type"
-                                >
-                                    <template v-slot:prepend-item>
-                                        <v-list-item>
-                                            <v-list-item-content>
-                                                <v-text-field
-                                                    v-model="searchTerm"
-                                                    placeholder="جستجو"
-                                                ></v-text-field>
-                                            </v-list-item-content>
-                                        </v-list-item>
-                                        <v-divider class="mt-2"></v-divider>
-                                    </template>
-                                    <template v-slot:item="{ props, item }">
-                                        <v-list-item
-                                            v-bind="props"
-                                        ></v-list-item>
-                                    </template>
-                                </v-select>
-                            </div>
-                            <div class="col-span-12">
-                                <v-select
-                                    variant="solo-filled"
-                                    single-line
-                                    label="انتخاب حرکت"
-                                    :items="filteredMovements"
-                                    item-title="name"
-                                    no-data-text="موردی وجود ندارد"
-                                    v-model="movement_value.movement"
-                                >
-                                    <template v-slot:prepend-item>
-                                        <v-list-item>
-                                            <v-list-item-content>
-                                                <v-text-field
-                                                    v-model="search_movement"
-                                                    placeholder="جستجو"
-                                                ></v-text-field>
-                                            </v-list-item-content>
-                                        </v-list-item>
-                                        <v-divider class="mt-2"></v-divider>
-                                    </template>
-                                    <template v-slot:item="{ props, item }">
-                                        <v-list-item
-                                            v-bind="props"
-                                        ></v-list-item>
-                                    </template>
-                                </v-select>
-                            </div>
-                            <div class="col-span-6">
-                                <Field
-                                    mode="passive"
-                                    name="value"
-                                    v-slot="{ field }"
-                                    label="تعداد"
-                                >
-                                    <v-text-field
-                                        required
-                                        v-bind="field"
-                                        v-model="movement_value.value"
-                                        label="تعداد"
-                                        density="compact"
-                                        single-line
-                                        hide-details="auto"
-                                    ></v-text-field>
-                                </Field>
-                                <div class="invalid-feedback d-block">
-                                    <ErrorMessage name="value" />
-                                </div>
-                            </div>
-                            <div class="col-span-6">
-                                <Field
-                                    mode="passive"
-                                    name="value"
-                                    v-slot="{ field }"
-                                    label="دفعات تکرار"
-                                >
-                                    <v-text-field
-                                        required
-                                        v-bind="field"
-                                        v-model="movement_value.repeat"
-                                        label="دفعات تکرار"
-                                        density="compact"
-                                        single-line
-                                        hide-details="auto"
-                                    ></v-text-field>
-                                </Field>
-                                <div class="invalid-feedback d-block">
-                                    <ErrorMessage name="value" />
-                                </div>
-                            </div>
-                        </template>
-                        <template v-if="form.type.value == '4'">
-                            <div class="col-span-12">
-                                <v-select
-                                    variant="solo-filled"
-                                    single-line
-                                    label="انتخاب نوع تمرین"
-                                    :items="filteredExercises"
-                                    item-title="name"
-                                    no-data-text="موردی وجود ندارد"
-                                    v-model="movement_value.movement_type"
-                                >
-                                    <template v-slot:prepend-item>
-                                        <v-list-item>
-                                            <v-list-item-content>
-                                                <v-text-field
-                                                    v-model="searchTerm"
-                                                    placeholder="جستجو"
-                                                ></v-text-field>
-                                            </v-list-item-content>
-                                        </v-list-item>
-                                        <v-divider class="mt-2"></v-divider>
-                                    </template>
-                                    <template v-slot:item="{ props, item }">
-                                        <v-list-item
-                                            v-bind="props"
-                                        ></v-list-item>
-                                    </template>
-                                </v-select>
-                            </div>
-                            <div class="col-span-12">
-                                <v-select
-                                    variant="solo-filled"
-                                    single-line
-                                    label="انتخاب حرکت"
-                                    :items="filteredMovements"
-                                    item-title="name"
-                                    no-data-text="موردی وجود ندارد"
-                                    v-model="movement_value.movement"
-                                >
-                                    <template v-slot:prepend-item>
-                                        <v-list-item>
-                                            <v-list-item-content>
-                                                <v-text-field
-                                                    v-model="search_movement"
-                                                    placeholder="جستجو"
-                                                ></v-text-field>
-                                            </v-list-item-content>
-                                        </v-list-item>
-                                        <v-divider class="mt-2"></v-divider>
-                                    </template>
-                                    <template v-slot:item="{ props, item }">
-                                        <v-list-item
-                                            v-bind="props"
-                                        ></v-list-item>
-                                    </template>
-                                </v-select>
-                            </div>
-                            <div class="col-span-12">
-                                <div
-                                    class="grid grid-cols-12 gap-2 mb-2"
-                                    v-for="(item, j) in movement_value.values"
-                                    :key="j"
-                                >
-                                    <div class="col-span-5">
-                                        <v-text-field
-                                            required
-                                            v-model="item.value"
-                                            label="تعداد"
-                                            density="compact"
-                                            single-line
-                                            hide-details="auto"
-                                            type="number"
-                                        ></v-text-field>
-                                        <div class="invalid-feedback d-block">
-                                            <ErrorMessage name="value" />
-                                        </div>
-                                    </div>
-                                    <div class="col-span-5">
-                                        <v-text-field
-                                            required
-                                            v-model="item.repeat"
-                                            label=" تکرار"
-                                            type="number"
-                                            density="compact"
-                                            single-line
-                                            hide-details="auto"
-                                        ></v-text-field>
-                                        <div class="invalid-feedback d-block">
-                                            <ErrorMessage name="value" />
-                                        </div>
-                                    </div>
-                                    <div class="col-span-2">
-                                        <div class="mr-4">
-                                            <v-btn
-                                                @click="
-                                                    deleteMovementValue(
-                                                        movement_value,
-                                                        j
-                                                    )
-                                                "
-                                                size="small"
-                                                density="default"
-                                                icon="mdi-trash-can-outline"
-                                            ></v-btn>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-span-12">
-                                <v-btn
-                                    @click="handleIncMovement(movement_value)"
-                                    color="light-blue-accent-4"
-                                    block
-                                    class="mt-2"
-                                    >اضافه کردن</v-btn
-                                >
-                            </div>
-                        </template>
-                    </div>
+                    <template v-if="form.type.value == '1'">
+                        <NormalMovement
+                            :movement-values="movement_values"
+                            :movement-data="movements"
+                            :exercise-data="exercises"
+                        />
+                    </template>
+                    <template v-if="form.type.value == '2'">
+                        <SuperSetMovement
+                            :movement-values="movement_values"
+                            :movement-data="movements"
+                            :exercise-data="exercises"
+                        />
+                    </template>
+
+                    <template v-if="form.type.value == '3'">
+                        <DropSetMovement
+                            :movement-values="movement_values"
+                            :movement-data="movements"
+                            :exercise-data="exercises"
+                        />
+                    </template>
+                    <template v-if="form.type.value == '4'">
+                        <PyramidalMovement
+                            :movement-values="movement_values"
+                            :movement-data="movements"
+                            :exercise-data="exercises"
+                        />
+                    </template>
 
                     <div>
                         <v-btn
@@ -510,7 +215,10 @@
 import { ref, onMounted, computed, watch } from "vue";
 import ApiService from "@/Core/services/ApiService";
 import { ErrorMessage, Field, Form } from "vee-validate";
-
+import NormalMovement from "@/Components/Movenment/Normal.vue";
+import SuperSetMovement from "@/Components/Movenment/SuperSet.vue";
+import DropSetMovement from "@/Components/Movenment/DropSet.vue";
+import PyramidalMovement from "@/Components/Movenment/Pyramidal.vue";
 const exercises = ref([]);
 const movements = ref([]);
 const searchTerm = ref("");
@@ -607,6 +315,15 @@ watch(
                         values: [{ value: "", repeat: "" }],
                     }
                 );
+                break;
+            case "3":
+                movement_values.value.push({
+                    value: "",
+                    repeat: "",
+                    movement_type: null,
+                    movement: null,
+                    values: [{ value: "", repeat: "" }],
+                });
                 break;
             case "4":
                 movement_values.value.push({
