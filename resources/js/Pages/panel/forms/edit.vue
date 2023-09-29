@@ -2,99 +2,335 @@
     <div>
         <v-sheet>
             <div class="mb-6">
-                <h2 class="text-xl">ویرایش حرکت</h2>
+                <h2 class="text-xl">ایجاد برنامه</h2>
             </div>
-            <v-form
-                ref="formRef"
-                validate-on="submit"
-                @submit.prevent="handleUpdate"
-            >
-                <v-text-field
-                    v-model="form.name"
-                    :rules="rules"
-                    label="نام"
-                    density="compact"
-                    single-line
-                    variant="solo"
-                ></v-text-field>
-                <v-radio-group v-model="form.is_aerobic">
-                    <template v-slot:label>
-                        <div>هوازی</div>
-                    </template>
-                    <v-radio label="هوازی" value="1"></v-radio>
-                    <v-radio label="غیرهوازی" value="0"></v-radio>
-                </v-radio-group>
 
-                <v-radio-group v-model="form.is_repeater">
-                    <template v-slot:label>
-                        <div>تکرار شونده</div>
-                    </template>
-                    <v-radio label="می باشد" value="1"></v-radio>
-                    <v-radio label="نمی باشد" value="0"></v-radio>
-                </v-radio-group>
-                <v-btn
-                    :loading="loading"
-                    color="light-blue-accent-4"
-                    type="submit"
-                    block
-                    class="mt-2"
-                    >ویرایش</v-btn
-                >
-            </v-form>
+            <Form ref="formRef" @submit="handleUpdate">
+                <div class="grid grid-cols-12 gap-2">
+                    <div class="col-span-12 lg:col-span-6">
+                        <Field
+                            mode="passive"
+                            name="first_name"
+                            v-slot="{ field }"
+                            rules="required"
+                            label="نام"
+                        >
+                            <v-text-field
+                                v-bind="field"
+                                v-model="form.first_name"
+                                label="نام"
+                                density="compact"
+                                single-line
+                                hide-details="auto"
+                            ></v-text-field>
+                        </Field>
+                        <div class="invalid-feedback d-block">
+                            <ErrorMessage name="first_name" />
+                        </div>
+                    </div>
+                    <div class="col-span-12 lg:col-span-6">
+                        <Field
+                            mode="passive"
+                            name="last_name"
+                            v-slot="{ field }"
+                            rules="required"
+                            label="نام خانوادگی"
+                        >
+                            <v-text-field
+                                v-model="form.last_name"
+                                label="نام خانوادگی"
+                                density="compact"
+                                single-line
+                                v-bind="field"
+                                hide-details="auto"
+                            ></v-text-field>
+                        </Field>
+                        <div class="invalid-feedback d-block">
+                            <ErrorMessage name="last_name" />
+                        </div>
+                    </div>
+                    <div class="col-span-12 lg:col-span-3">
+                        <Field
+                            mode="passive"
+                            name="mobile"
+                            v-slot="{ field }"
+                            rules="required"
+                            label="شماره همراه"
+                        >
+                            <v-text-field
+                                v-model="form.mobile"
+                                label="شماره همراه"
+                                density="compact"
+                                single-line
+                                type="number"
+                                v-bind="field"
+                                hide-details="auto"
+                            ></v-text-field>
+                        </Field>
+                        <div class="invalid-feedback d-block">
+                            <ErrorMessage name="mobile" />
+                        </div>
+                    </div>
+                    <div class="col-span-12 lg:col-span-3">
+                        <Field
+                            mode="passive"
+                            name="height"
+                            v-slot="{ field }"
+                            rules="required"
+                            label=" قد"
+                        >
+                            <v-text-field
+                                v-model="form.height"
+                                label=" قد"
+                                density="compact"
+                                single-line
+                                type="number"
+                                v-bind="field"
+                                hide-details="auto"
+                            ></v-text-field>
+                        </Field>
+                        <div class="invalid-feedback d-block">
+                            <ErrorMessage name="height" />
+                        </div>
+                    </div>
+                    <div class="col-span-12 lg:col-span-3">
+                        <Field
+                            mode="passive"
+                            name="weight"
+                            v-slot="{ field }"
+                            rules="required"
+                            label=" وزن"
+                        >
+                            <v-text-field
+                                v-model="form.weight"
+                                label=" وزن"
+                                density="compact"
+                                single-line
+                                type="number"
+                                v-bind="field"
+                                hide-details="auto"
+                            ></v-text-field>
+                        </Field>
+                        <div class="invalid-feedback d-block">
+                            <ErrorMessage name="weight" />
+                        </div>
+                    </div>
+                    <div class="col-span-12 lg:col-span-3">
+                        <Field
+                            mode="passive"
+                            name="age"
+                            v-slot="{ field }"
+                            rules="required"
+                            label="سن"
+                        >
+                            <v-text-field
+                                v-model="form.age"
+                                label="سن"
+                                density="compact"
+                                single-line
+                                type="number"
+                                v-bind="field"
+                                hide-details="auto"
+                            ></v-text-field>
+                        </Field>
+                        <div class="invalid-feedback d-block">
+                            <ErrorMessage name="age" />
+                        </div>
+                    </div>
+
+                    <div class="col-span-12 lg:col-span-12">
+                        <Field
+                            mode="passive"
+                            name="sports_history"
+                            v-slot="{ field }"
+                            rules="required"
+                            label="سابقه ورزشی"
+                        >
+                            <v-text-field
+                                v-model="form.sports_history"
+                                label="سابقه ورزشی"
+                                density="compact"
+                                single-line
+                                v-bind="field"
+                                hide-details="auto"
+                            ></v-text-field>
+                        </Field>
+                        <div class="invalid-feedback d-block">
+                            <ErrorMessage name="sports_history" />
+                        </div>
+                    </div>
+                    <div class="col-span-12 lg:col-span-12">
+                        <Field
+                            mode="passive"
+                            name="illness"
+                            v-slot="{ field }"
+                            rules="required"
+                            label="نوع آسیب یا بیماری"
+                        >
+                            <v-text-field
+                                v-model="form.illness"
+                                label="نوع آسیب یا بیماری"
+                                density="compact"
+                                single-line
+                                v-bind="field"
+                                hide-details="auto"
+                            ></v-text-field>
+                        </Field>
+                        <div class="invalid-feedback d-block">
+                            <ErrorMessage name="illness" />
+                        </div>
+                    </div>
+                    <div class="col-span-12 lg:col-span-12">
+                        <Field
+                            mode="passive"
+                            name="purpose"
+                            v-slot="{ field }"
+                            rules="required"
+                            label="هدف تمرین"
+                        >
+                            <v-text-field
+                                v-model="form.purpose"
+                                label="هدف تمرین"
+                                density="compact"
+                                single-line
+                                v-bind="field"
+                                hide-details="auto"
+                            ></v-text-field>
+                        </Field>
+                        <div class="invalid-feedback d-block">
+                            <ErrorMessage name="purpose" />
+                        </div>
+                    </div>
+                    <div class="col-span-12 lg:col-span-6">
+                        <Field
+                            mode="passive"
+                            name="use_duration"
+                            v-slot="{ field }"
+                            rules="required"
+                            label="مدت زمان استفاده از برنامه"
+                        >
+                            <v-text-field
+                                v-model="form.use_duration"
+                                label="مدت زمان استفاده از برنامه"
+                                density="compact"
+                                single-line
+                                v-bind="field"
+                                hide-details="auto"
+                            ></v-text-field>
+                        </Field>
+                        <div class="invalid-feedback d-block">
+                            <ErrorMessage name="use_duration" />
+                        </div>
+                    </div>
+                    <div class="col-span-12 lg:col-span-6">
+                        <Field
+                            mode="passive"
+                            name="modified_date"
+                            v-slot="{ field }"
+                            rules="required"
+                            label="تاریخ صدور برنامه"
+                        >
+                            <date-picker
+                                v-bind="field"
+                                placeholder="تاریخ صدور برنامه"
+                                v-model="form.modified_date"
+                            >
+                            </date-picker>
+                        </Field>
+                        <div class="invalid-feedback d-block">
+                            <ErrorMessage name="modified_date" />
+                        </div>
+                    </div>
+                    <div class="col-span-12">
+                        <v-btn
+                            :loading="loading"
+                            color="light-blue-accent-4"
+                            type="submit"
+                            block
+                            class="mt-2"
+                            >ویرایش</v-btn
+                        >
+                    </div>
+                </div>
+            </Form>
         </v-sheet>
-        <v-snackbar absolute v-model="visible_success_message" :timeout="20000">
-            حرکت با موفقیت ویرایش شد.
-        </v-snackbar>
     </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { ref, onMounted } from "vue";
 import ApiService from "@/Core/services/ApiService";
 import { useRoute, useRouter } from "vue-router";
+import DatePicker from "vue3-persian-datetime-picker";
+import { ErrorMessage, Field, Form } from "vee-validate";
 
 const loading = ref(false);
 const formRef = ref(null);
 const form = ref({
-    name: null,
-    is_aerobic: 0,
-    is_repeater: 0,
+    first_name: null,
+    last_name: null,
+    mobile: null,
+    height: null,
+    weight: null,
+    age: null,
+    sports_history: null,
+    modified_date: "",
+    illness: null,
+    purpose: null,
+    use_duration: null,
 });
-const visible_success_message = ref(false);
-const rules = ref([
-    (value) => {
-        if (value) return true;
-        return "نام  حرکت  الزامی می باشد";
-    },
-]);
+
 const router = useRouter();
 const route = useRoute();
+
 const handleUpdate = async (event) => {
     const { valid } = await formRef.value.validate();
     if (valid) {
         loading.value = true;
         const form_data = new FormData();
-        form_data.append("name", form.value.name);
-        form_data.append("is_aerobic", form.value.is_aerobic);
-        form_data.append("is_repeater", form.value.is_repeater);
+
+        form_data.append("first_name", form.value.first_name);
+        form_data.append("last_name", form.value.last_name);
+        form_data.append("mobile", form.value.mobile);
+        form_data.append("height", form.value.height);
+        form_data.append("weight", form.value.weight);
+        form_data.append("age", form.value.age);
+        form_data.append("sports_history", form.value.sports_history);
+        form_data.append("modified_date", form.value.modified_date);
+        form_data.append("illness", form.value.illness);
+        form_data.append("purpose", form.value.purpose);
+        form_data.append("use_duration", form.value.use_duration);
+
         const { data } = await ApiService.put(
-            `/api/panel/movements/${route.params.id}`,
+            `/api/panel/forms/${route.params.id}`,
             form_data
         );
+
         if (data.success) {
-            visible_success_message.value = true;
-            router.push({ name: "panel-movements-index" });
+            router.push({ name: "panel-forms-index" });
         }
     }
 };
 
 const fetchData = async () => {
     const { data } = await ApiService.get(
-        `/api/panel/movements/${route.params.id}`
+        `/api/panel/forms/${route.params.id}`
     );
-    form.value.name = data.data.name;
-    form.value.is_aerobic = data.data.is_aerobic.toString();
-    form.value.is_repeater = data.data.is_repeater.toString();
+
+    form.value.first_name = data.data.first_name;
+    form.value.last_name = data.data.last_name;
+    form.value.mobile = data.data.mobile;
+    form.value.height = data.data.height;
+    form.value.weight = data.data.weight;
+    form.value.age = data.data.age;
+    form.value.sports_history = data.data.sports_history;
+    form.value.modified_date = data.data.modified_date;
+    form.value.illness = data.data.illness;
+    form.value.purpose = data.data.purpose;
+    form.value.use_duration = data.data.use_duration;
+    formRef.value.setValues({
+        ...form.value,
+    });
 };
 
 onMounted(() => {

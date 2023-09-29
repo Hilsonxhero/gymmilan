@@ -63,6 +63,7 @@ class FormController extends Controller
     public function show(string $id)
     {
         $form = Form::find($id);
+        $form = new FormResource($form);
         ApiService::_success($form);
     }
 
@@ -93,10 +94,10 @@ class FormController extends Controller
             'weight' => $request->weight,
             'age' => $request->age,
             'sports_history' => $request->sports_history,
-            'modified_date' => $request->modified_date,
             'illness' => $request->illness,
             'purpose' => $request->purpose,
             'use_duration' => $request->use_duration,
+            'modified_date' => createDatetimeFromFormat($request->modified_date, 'Y/m/d')
         ]);
         ApiService::_success($form);
     }
