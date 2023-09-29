@@ -318,10 +318,6 @@
                                                         ) in item.values"
                                                         :key="k"
                                                     >
-                                                        <!-- <span
-                                                class="ml-1 text-gray-800 font-bold"
-                                                >(1)</span
-                                            > -->
                                                         <span>{{
                                                             movement_value.value
                                                         }}</span>
@@ -697,8 +693,4 @@ onMounted(() => {
 });
 </script>
 
-<style>
-.zzz:first-of-type > .divider-value {
-    display: none !important;
-}
-</style>
+<style></style>

@@ -86,3 +86,12 @@ select {
 .form-detail-logo {
     width: 100px;
 }
+.form-detail-module__items {
+    direction: ltr;
+}
+.form-detail-module__items > div {
+    direction: rtl;
+}
+.zzz:first-of-type > .divider-value {
+    display: none !important;
+}
