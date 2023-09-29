@@ -67,15 +67,15 @@ export default {
             name: "panel-forms-exercises-edit",
             component: () => import("@/Pages/panel/forms/exercises/edit.vue"),
         },
-        // {
-        //     path: "forms/manage/:id",
-        //     name: "panel-forms-exercises-edit",
-        //     component: () => import("@/Pages/panel/forms/manage.vue"),
-        // },
         {
             path: "forms/edit/:id",
             name: "panel-forms-edit",
             component: () => import("@/Pages/panel/forms/edit.vue"),
+        },
+        {
+            path: "forms/detail/:id",
+            name: "panel-forms-detail",
+            component: () => import("@/Pages/panel/forms/detail.vue"),
         },
     ],
 };

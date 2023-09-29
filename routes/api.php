@@ -34,4 +34,5 @@ Route::prefix('/panel')->group(function () {
     Route::resource('movements', MovementController::class);
     Route::resource('forms', FormController::class);
     Route::resource('form/{form}/programs', FormProgramController::class);
+    Route::get('form/{id}/detail', [FormController::class, 'detail']);
 });

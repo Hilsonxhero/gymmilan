@@ -48,6 +48,15 @@
                                 </v-btn>
                                 <v-btn
                                     :to="{
+                                        name: 'panel-forms-detail',
+                                        params: { id: item.id },
+                                    }"
+                                    prepend-icon="mdi-printer-outline"
+                                >
+                                    چاپ
+                                </v-btn>
+                                <v-btn
+                                    :to="{
                                         name: 'panel-forms-edit',
                                         params: { id: item.id },
                                     }"

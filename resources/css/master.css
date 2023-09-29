@@ -78,3 +78,11 @@ textarea,
 select {
     background-color: unset;
 }
+
+.form-detail-module {
+    height: 297mm;
+    width: 210mm;
+}
+.form-detail-logo {
+    width: 100px;
+}

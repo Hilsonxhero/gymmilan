@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\Panel\WorkoutProgramResource;
+use App\Models\WorkoutProgram;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -27,7 +29,7 @@ class FormResource extends JsonResource
             'purpose' => $this->purpose,
             'use_duration' => $this->use_duration,
             'modified_date' => formatGregorian($this->modified_date, 'Y/m/d'),
-
+            'programs' =>  WorkoutProgramResource::collection($this->programs)
         ];
     }
 }

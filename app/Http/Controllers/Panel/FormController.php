@@ -68,6 +68,16 @@ class FormController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function detail(string $id)
+    {
+        $form = Form::find($id);
+        ApiService::_success(new FormResource($form));
+    }
+
+
+    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
