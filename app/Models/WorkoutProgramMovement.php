@@ -14,8 +14,14 @@ class WorkoutProgramMovement extends Model
         'type',
     ];
 
+    protected $append = ['values'];
+
     public function workout_program()
     {
         return $this->belongsTo(WorkoutProgram::class);
+    }
+    public function values()
+    {
+        return $this->hasMany(WorkoutProgramMovementValue::class, 'program_movement_id', 'id');
     }
 }

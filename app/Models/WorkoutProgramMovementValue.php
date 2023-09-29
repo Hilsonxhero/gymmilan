@@ -21,11 +21,15 @@ class WorkoutProgramMovementValue extends Model
 
     public function program()
     {
-        return $this->belongsTo(WorkoutProgramMovement::class, 'id', 'program_movement_id');
+        return $this->belongsTo(WorkoutProgramMovement::class, 'program_movement_id', 'id');
+    }
+    public function exercise()
+    {
+        return $this->belongsTo(Exercise::class);
     }
 
     public function movement()
     {
-        return $this->belongsTo(Movement::class);
+        return $this->belongsTo(Movement::class, 'movement_id', 'id');
     }
 }

@@ -62,6 +62,34 @@
         </div>
         <div class="col-span-12">
             <v-text-field
+                type="number"
+                required
+                v-model="movement_value.practise"
+                label="تعداد گرم کردن"
+                density="compact"
+                single-line
+                variant="solo-filled"
+            ></v-text-field>
+
+            <div class="invalid-feedback d-block">
+                <ErrorMessage name="practise" />
+            </div>
+        </div>
+        <div class="col-span-12">
+            <v-text-field
+                v-model="movement_value.title"
+                label="یادداشت (اختیاری)"
+                density="compact"
+                single-line
+                variant="solo-filled"
+            ></v-text-field>
+
+            <div class="invalid-feedback d-block">
+                <ErrorMessage name="practise" />
+            </div>
+        </div>
+        <div class="col-span-12">
+            <v-text-field
                 required
                 v-model="movement_value.repeat"
                 label=" تکرار"

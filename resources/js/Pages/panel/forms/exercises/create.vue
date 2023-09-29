@@ -471,6 +471,8 @@ const movement_values = ref([
     {
         value: "",
         repeat: "",
+        practise: 0,
+        title: "",
         movement_type: null,
         movement: null,
         values: [{ value: "", repeat: "" }],
@@ -490,6 +492,8 @@ const handleSaveMovement = () => {
         {
             value: "",
             repeat: "",
+            practise: 0,
+            title: "",
             movement_type: null,
             movement: null,
             values: [{ value: "", repeat: "" }],
@@ -519,6 +523,8 @@ watch(
                 movement_values.value.push({
                     value: "",
                     repeat: "",
+                    practise: 0,
+                    title: "",
                     movement_type: null,
                     movement: null,
                     values: [{ value: "", repeat: "" }],
@@ -529,6 +535,8 @@ watch(
                     {
                         value: "",
                         repeat: "",
+                        practise: 0,
+                        title: "",
                         movement_type: null,
                         movement: null,
                         values: [{ value: "", repeat: "" }],
@@ -536,6 +544,8 @@ watch(
                     {
                         value: "",
                         repeat: "",
+                        practise: 0,
+                        title: "",
                         movement_type: null,
                         movement: null,
                         values: [{ value: "", repeat: "" }],
@@ -546,6 +556,8 @@ watch(
                 movement_values.value.push({
                     value: "",
                     repeat: "",
+                    practise: 0,
+                    title: "",
                     movement_type: null,
                     movement: null,
                     values: [{ value: "", repeat: "" }],
@@ -555,6 +567,8 @@ watch(
                 movement_values.value.push({
                     value: "",
                     repeat: "",
+                    practise: 0,
+                    title: "",
                     movement_type: null,
                     movement: null,
                     values: [{ value: "", repeat: "" }],
