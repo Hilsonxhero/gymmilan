@@ -15,8 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId("program_movement_id")->constrained("workout_program_movements")->cascadeOnDelete();
             $table->foreignId("movement_id")->constrained("movements")->cascadeOnDelete();
+            $table->foreignId("exercise_id")->constrained("exercises")->cascadeOnDelete();
             $table->text("value");
             $table->smallInteger("repeat")->nullable();
+            $table->string("practise")->nullable();
+            $table->string("title")->nullable();
             $table->timestamps();
         });
     }

@@ -59,7 +59,6 @@ const handleCreate = async (event) => {
             "/api/panel/exercises",
             form_data
         );
-        console.log("data", data);
 
         if (data.success) {
             router.push({ name: "panel-exercises-index" });

@@ -11,6 +11,8 @@
                 label="انتخاب نوع تمرین"
                 :items="filteredExercises"
                 item-title="name"
+                return-object
+                item-value="id"
                 no-data-text="موردی وجود ندارد"
                 v-model="movement_value.movement_type"
             >
@@ -37,6 +39,8 @@
                 label="انتخاب حرکت"
                 :items="filteredMovements"
                 item-title="name"
+                return-object
+                item-value="id"
                 no-data-text="موردی وجود ندارد"
                 v-model="movement_value.movement"
             >
@@ -123,6 +127,7 @@ const props = defineProps({
     movementData: {},
     movementValues: {},
 });
+const emits = defineEmits(["add-value", "delete-value"]);
 const exercises = ref([]);
 const movements = ref([]);
 const searchTerm = ref("");
@@ -148,6 +153,13 @@ const filteredMovements = computed(() => {
         );
     }
 });
+
+const deleteMovementValue = (item, index) => {
+    emits("delete-value", { row: item, index: index });
+};
+const handleIncMovement = (item) => {
+    emits("add-value", item);
+};
 
 watch(
     () => props.exerciseData,

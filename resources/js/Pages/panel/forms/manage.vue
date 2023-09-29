@@ -5,8 +5,8 @@
                 <h2 class="text-xl">مدیریت تمرینات</h2>
             </div>
 
-            <div class="grid grid-cols-12 gap-3">
-                <div class="col-span-5">
+            <div class="grid grid-cols-12 gap-2">
+                <div class="col-span-12 xl:col-span-4 lg:col-span-4">
                     <v-select
                         v-model="form.type"
                         label="انتخاب نوع ست"
@@ -23,6 +23,7 @@
                             :movement-values="movement_values"
                             :movement-data="movements"
                             :exercise-data="exercises"
+                            @change-movement="handleOnChangeMovement"
                         />
                     </template>
                     <template v-if="form.type.value == '2'">
@@ -38,6 +39,8 @@
                             :movement-values="movement_values"
                             :movement-data="movements"
                             :exercise-data="exercises"
+                            @add-value="handleIncMovement"
+                            @delete-value="deleteMovementValue"
                         />
                     </template>
                     <template v-if="form.type.value == '4'">
@@ -45,6 +48,8 @@
                             :movement-values="movement_values"
                             :movement-data="movements"
                             :exercise-data="exercises"
+                            @add-value="handleIncMovement"
+                            @delete-value="deleteMovementValue"
                         />
                     </template>
 
@@ -58,152 +63,254 @@
                         >
                     </div>
                 </div>
-                <div class="col-span-7 border-2 border-gray-700 px-4">
-                    <div class="border-b border-gray-600 p-2">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="text-sm text-gray-600">
-                                    <span> لاری هالتر از پشت</span>
-                                    <span class="mr-1 text-gray-500"
-                                        >(پشت بازو)</span
+                <div class="col-span-12 xl:col-span-8 lg:col-span-8 px-4">
+                    <div
+                        class="bg-gray-200 px-3 py-3 mb-2 rounded-lg"
+                        v-for="(movement, index) in created_movements"
+                    >
+                        <template v-if="movement.type.value == '1'">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div
+                                        class="text-sm text-gray-600"
+                                        v-for="(item, j) in movement.movement"
+                                        :key="j"
                                     >
-                                </div>
-                            </div>
-                            <div class="flex items-center mr-2">
-                                <div class="text-sm">10</div>
-                                <span>x</span>
-                                <div class="text-sm">10</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border-b border-gray-600 p-2">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="flex flex-col items-center">
-                                    <div class="text-sm text-gray-600">
-                                        <span> لاری هالتر از پشت</span>
+                                        <span>{{ item?.movement?.name }}</span>
                                         <span class="mr-1 text-gray-500"
-                                            >(پشت بازو)</span
-                                        >
-                                        <span
-                                            class="mr-1 text-gray-800 font-bold"
-                                            >(1)</span
+                                            >({{
+                                                item?.movement_type?.name
+                                            }})</span
                                         >
                                     </div>
                                 </div>
+                                <div
+                                    class="flex items-center mr-2"
+                                    v-for="(item, j) in movement.movement"
+                                    :key="j"
+                                >
+                                    <template v-if="item.movement.is_aerobic">
+                                        <template
+                                            v-if="item.movement.is_repeater"
+                                        >
+                                            <div class="text-sm">
+                                                {{ item?.value }} ثانیه
+                                            </div>
+                                            <span>x</span>
+                                            <div class="text-sm">
+                                                {{ item?.repeat }}
+                                            </div>
+                                        </template>
+                                        <template v-else>
+                                            <div class="text-sm">
+                                                {{ item?.value }} ثانیه
+                                            </div>
+                                        </template>
+                                    </template>
+                                    <template v-else>
+                                        <div class="text-sm">
+                                            {{ item?.value }}
+                                        </div>
+                                        <span>x</span>
+                                        <div class="text-sm">
+                                            {{ item?.repeat }}
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                        <template v-if="movement.type.value == '2'">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div
+                                        class="flex items-center"
+                                        v-for="(item, j) in movement.movement"
+                                        :key="j"
+                                    >
+                                        <div class="text-sm text-gray-600">
+                                            <span>{{
+                                                item.movement?.name
+                                            }}</span>
+                                            <span class="mr-1 text-gray-500"
+                                                >(
+                                                {{
+                                                    item?.movement_type?.name
+                                                }})</span
+                                            >
+                                            <span
+                                                class="mr-1 text-gray-800 font-bold"
+                                                >({{ j + 1 }})</span
+                                            >
+                                        </div>
+                                        <span class="mx-2" v-if="j == 0"
+                                            >x</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="flex items-center mr-2">
+                                    <div class="flex flex-col items-center">
+                                        <div
+                                            class="flex items-center text-sm border-b-2"
+                                            v-for="(
+                                                item, j
+                                            ) in movement.movement"
+                                            :key="j"
+                                        >
+                                            <span
+                                                class="ml-1 text-gray-800 font-bold"
+                                                >({{ j + 1 }})</span
+                                            >
+                                            <template
+                                                v-if="item.movement.is_aerobic"
+                                            >
+                                                <template
+                                                    v-if="
+                                                        item.movement
+                                                            .is_repeater
+                                                    "
+                                                >
+                                                    <span
+                                                        class="flex items-center"
+                                                    >
+                                                        <span
+                                                            >{{
+                                                                item?.value
+                                                            }}
+                                                            ثانیه</span
+                                                        >
+                                                        <span class="mx-1"
+                                                            >x</span
+                                                        >
+                                                        <span>{{
+                                                            item?.repeat
+                                                        }}</span>
+                                                    </span>
+                                                </template>
+                                                <template v-else>
+                                                    <div class="text-sm">
+                                                        {{ item?.value }} ثانیه
+                                                    </div>
+                                                </template>
+                                            </template>
+                                            <template v-else>
+                                                <span class="flex items-center">
+                                                    <span>{{
+                                                        item?.value
+                                                    }}</span>
+                                                    <span class="mx-1">x</span>
+                                                    <span>{{
+                                                        item?.repeat
+                                                    }}</span>
+                                                </span>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        <template v-if="movement.type.value == '3'">
+                            <div class="flex items-center justify-between">
+                                <div
+                                    class="flex items-center"
+                                    v-for="(item, j) in movement.movement"
+                                    :key="j"
+                                >
+                                    <div class="text-sm text-gray-600">
+                                        <span>
+                                            {{ item.movement?.name }}
+                                        </span>
+                                        <span class="mr-1 text-gray-500"
+                                            >({{
+                                                item?.movement_type?.name
+                                            }})</span
+                                        >
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex items-center mr-2"
+                                    v-for="(item, j) in movement.movement"
+                                    :key="j"
+                                >
+                                    <div class="flex flex-col items-center">
+                                        <div
+                                            class="flex items-center text-sm border-b-2"
+                                            v-for="(
+                                                movement_value, k
+                                            ) in item.values"
+                                            :key="k"
+                                        >
+                                            <!-- <span
+                                                class="ml-1 text-gray-800 font-bold"
+                                                >(1)</span
+                                            > -->
+                                            <span>{{
+                                                movement_value.value
+                                            }}</span>
+                                        </div>
+                                    </div>
+                                    <span class="mx-1">x</span>
+                                    <div class="text-sm">{{ item.repeat }}</div>
+                                </div>
+                            </div>
+                        </template>
+                        <template v-if="movement.type.value == '4'">
+                            <div class="flex items-center justify-between">
+                                <div
+                                    class="flex items-center"
+                                    v-for="(item, j) in movement.movement"
+                                    :key="j"
+                                >
+                                    <div class="text-sm text-gray-600">
+                                        <span> {{ item.movement?.name }}</span>
+                                        <span class="mr-1 text-gray-500"
+                                            >(
+                                            {{
+                                                item?.movement_type?.name
+                                            }})</span
+                                        >
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex items-center mr-2"
+                                    v-for="(item, j) in movement.movement"
+                                    :key="j"
+                                >
+                                    <div
+                                        v-for="(
+                                            movement_value, k
+                                        ) in item.values"
+                                        :key="k"
+                                        class="flex items-center zzz"
+                                    >
+                                        <span class="mx-2 divider-value"
+                                            >/</span
+                                        >
+                                        <div
+                                            class="text-sm flex flex-col items-center"
+                                        >
+                                            <span class="border-b-2">{{
+                                                movement_value.value
+                                            }}</span>
+                                            <span>{{
+                                                movement_value.repeat
+                                            }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
 
-                                <span class="mx-2">x</span>
-                                <div class="flex flex-col items-center">
-                                    <div class="text-sm text-gray-600">
-                                        <span> لاری هالتر از پشت</span>
-                                        <span class="mr-1 text-gray-500"
-                                            >(پشت بازو)</span
-                                        >
-                                        <span
-                                            class="mr-1 text-gray-800 font-bold"
-                                            >(2)</span
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex items-center mr-2">
-                                <div class="flex flex-col items-center">
-                                    <div
-                                        class="flex items-center text-sm border-b-2"
-                                    >
-                                        <span
-                                            class="ml-1 text-gray-800 font-bold"
-                                            >(1)</span
-                                        >
-                                        <span>2</span>
-                                    </div>
-                                    <div
-                                        class="flex items-center text-sm border-b-2"
-                                    >
-                                        <span
-                                            class="ml-1 text-gray-800 font-bold"
-                                            >(2)</span
-                                        >
-                                        <span>2</span>
-                                    </div>
-                                </div>
-                                <span class="mx-1">x</span>
-                                <div class="text-sm">4</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border-b border-gray-600 p-2">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="text-sm text-gray-600">
-                                    <span> لاری هالتر از پشت</span>
-                                    <span class="mr-1 text-gray-500"
-                                        >(پشت بازو)</span
-                                    >
-                                </div>
-                            </div>
-                            <div class="flex items-center mr-2">
-                                <div class="text-sm flex flex-col items-center">
-                                    <span class="border-b-2">10</span>
-                                    <span>15</span>
-                                </div>
-                                <span class="mx-2">/</span>
-                                <div class="text-sm flex flex-col items-center">
-                                    <span class="border-b-2">10</span>
-                                    <span>15</span>
-                                </div>
-                                <span class="mx-2">/</span>
-                                <div class="text-sm flex flex-col items-center">
-                                    <span class="border-b-2">10</span>
-                                    <span>15</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border-b border-gray-600 p-2">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="text-sm text-gray-600">
-                                    <span> لاری هالتر از پشت</span>
-                                    <span class="mr-1 text-gray-500"
-                                        >(پشت بازو)</span
-                                    >
-                                </div>
-                            </div>
-                            <div class="flex items-center mr-2">
-                                <div class="flex flex-col items-center">
-                                    <div
-                                        class="flex items-center text-sm border-b-2"
-                                    >
-                                        <span
-                                            class="ml-1 text-gray-800 font-bold"
-                                            >(1)</span
-                                        >
-                                        <span>2</span>
-                                    </div>
-                                    <div
-                                        class="flex items-center text-sm border-b-2"
-                                    >
-                                        <span
-                                            class="ml-1 text-gray-800 font-bold"
-                                            >(2)</span
-                                        >
-                                        <span>2</span>
-                                    </div>
-                                    <div
-                                        class="flex items-center text-sm border-b-2"
-                                    >
-                                        <span
-                                            class="ml-1 text-gray-800 font-bold"
-                                            >(2)</span
-                                        >
-                                        <span>2</span>
-                                    </div>
-                                </div>
-                                <span class="mx-1">x</span>
-                                <div class="text-sm">4</div>
-                            </div>
-                        </div>
+                <div class="col-span-12 mt-8">
+                    <div>
+                        <v-btn
+                            @click="handleSubmit"
+                            size="large"
+                            block
+                            class="mt-2"
+                            >ذخیره تغییرات</v-btn
+                        >
                     </div>
                 </div>
             </div>
@@ -268,12 +375,20 @@ const handleSaveMovement = () => {
         movement: movement_values.value,
         type: form.value.type,
     });
+    movement_values.value = [
+        {
+            value: "",
+            repeat: "",
+            movement_type: null,
+            movement: null,
+            values: [{ value: "", repeat: "" }],
+        },
+    ];
 };
 const handleIncMovement = (movement) => {
-    console.log("movement", movement);
-
     switch (form.value.type.value) {
         case "4":
+        case "3":
             movement.values.push({ value: "", repeat: "" });
             break;
 
@@ -281,8 +396,8 @@ const handleIncMovement = (movement) => {
             break;
     }
 };
-const deleteMovementValue = (row, index) => {
-    row.values.splice(index, 1);
+const deleteMovementValue = (item) => {
+    item.row.values.splice(item.index, 1);
 };
 watch(
     () => form.value.type,
@@ -341,6 +456,13 @@ watch(
     }
 );
 
+const handleOnChangeMovement = (index) => {
+    movement_values.value[index].values.forEach((item) => {
+        item.value = "";
+        item.repeat = "";
+    });
+};
+
 const fetchData = async () => {
     const { data } = await ApiService.get("/api/panel/exercises");
     exercises.value = data.data;
@@ -352,4 +474,8 @@ onMounted(() => {
 });
 </script>
 
-<style scoped></style>
+<style>
+.zzz:first-of-type > .divider-value {
+    display: none !important;
+}
+</style>

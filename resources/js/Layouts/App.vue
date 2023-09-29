@@ -6,9 +6,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 
-onMounted(() => {
-    console.log("mounted");
-});
+onMounted(() => {});
 </script>
 
 <style></style>

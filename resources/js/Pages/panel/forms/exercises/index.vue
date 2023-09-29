@@ -1,9 +1,15 @@
 <template>
     <div>
         <div class="flex justify-between mb-12 items-center">
-            <h2 class="text-xl">لیست برنامه ها</h2>
-            <v-btn :to="{ name: 'panel-forms-create' }" color="blue-accent-2">
-                ایجاد برنامه تمرینی
+            <h2 class="text-xl">لیست گروه تمرینات</h2>
+            <v-btn
+                :to="{
+                    name: 'panel-forms-exercises-create',
+                    params: { id: route.params.id },
+                }"
+                color="blue-accent-2"
+            >
+                ایجاد گروه تمرینی
             </v-btn>
         </div>
         <div class="overflow-x-auto w-full">
@@ -11,45 +17,23 @@
                 <thead>
                     <tr>
                         <th class="text-right whitespace-nowrap">شماره</th>
-                        <th class="text-right whitespace-nowrap">نام</th>
-                        <th class="text-right whitespace-nowrap">
-                            نام خانوادگی
-                        </th>
-                        <th class="text-right whitespace-nowrap">
-                            شماره همراه
-                        </th>
-                        <th class="text-right whitespace-nowrap">قد</th>
-                        <th class="text-right whitespace-nowrap">وزن</th>
-                        <th class="text-right whitespace-nowrap">سن</th>
-                        <th class="text-right whitespace-nowrap">تاریخ صدور</th>
+                        <th class="text-right whitespace-nowrap">کلاس</th>
                         <th class="text-right whitespace-nowrap">عملیات</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="item in forms" :key="item.id">
+                    <tr v-for="item in programs" :key="item.id">
                         <td>{{ item.id }}</td>
-                        <td>{{ item.first_name }}</td>
-                        <td>{{ item.last_name }}</td>
-                        <td>{{ item.mobile }}</td>
-                        <td>{{ item.height }}</td>
-                        <td>{{ item.weight }}</td>
-                        <td>{{ item.age }}</td>
-                        <td>{{ item.modified_date }}</td>
+                        <td>{{ item.class }}</td>
                         <td>
                             <div class="flex items-center">
                                 <v-btn
                                     :to="{
-                                        name: 'panel-forms-exercises-index',
-                                        params: { id: item.id },
-                                    }"
-                                    prepend-icon="mdi-list-box-outline"
-                                >
-                                    مدیریت
-                                </v-btn>
-                                <v-btn
-                                    :to="{
-                                        name: 'panel-forms-edit',
-                                        params: { id: item.id },
+                                        name: 'panel-forms-exercises-edit',
+                                        params: {
+                                            id: route.params.id,
+                                            exercise: item.id,
+                                        },
                                     }"
                                     prepend-icon="mdi-pencil-box-outline"
                                     class="mr-4"
@@ -104,14 +88,18 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import ApiService from "@/Core/services/ApiService";
+import { useRoute, useRouter } from "vue-router";
 const visible_delete_confirmation = ref(false);
 const visible_delete_message = ref(false);
-
-const forms = ref([]);
+const route = useRoute();
+const router = useRouter();
+const programs = ref([]);
 const selected_item = ref(null);
 const fetchData = async () => {
-    const { data } = await ApiService.get("/api/panel/forms");
-    forms.value = data.data;
+    const { data } = await ApiService.get(
+        `/api/panel/form/${route.params.id}/programs`
+    );
+    programs.value = data.data;
 };
 const handleShowDeleteMessage = (item) => {
     visible_delete_confirmation.value = true;
@@ -120,7 +108,7 @@ const handleShowDeleteMessage = (item) => {
 
 const handleDelete = async () => {
     const { data } = await ApiService.delete(
-        `/api/panel/forms/${selected_item.value.id}`
+        `/api/panel/form/${route.params.id}/programs/${selected_item.value.id}`
     );
     if (data.success) {
         visible_delete_confirmation.value = false;

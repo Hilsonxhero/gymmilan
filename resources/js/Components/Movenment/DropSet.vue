@@ -11,6 +11,8 @@
                 label="انتخاب نوع تمرین"
                 :items="filteredExercises"
                 item-title="name"
+                return-object
+                item-value="id"
                 no-data-text="موردی وجود ندارد"
                 v-model="movement_value.movement_type"
             >
@@ -37,6 +39,8 @@
                 label="انتخاب حرکت"
                 :items="filteredMovements"
                 item-title="name"
+                return-object
+                item-value="id"
                 no-data-text="موردی وجود ندارد"
                 v-model="movement_value.movement"
             >
@@ -57,12 +61,26 @@
             </v-select>
         </div>
         <div class="col-span-12">
+            <v-text-field
+                required
+                v-model="movement_value.repeat"
+                label=" تکرار"
+                type="number"
+                density="compact"
+                single-line
+                hide-details="auto"
+            ></v-text-field>
+            <div class="invalid-feedback d-block">
+                <ErrorMessage name="value" />
+            </div>
+        </div>
+        <div class="col-span-12">
             <div
                 class="grid grid-cols-12 gap-2 mb-2"
                 v-for="(item, j) in movement_value.values"
                 :key="j"
             >
-                <div class="col-span-5">
+                <div class="col-span-10">
                     <v-text-field
                         required
                         v-model="item.value"
@@ -76,20 +94,7 @@
                         <ErrorMessage name="value" />
                     </div>
                 </div>
-                <div class="col-span-5">
-                    <v-text-field
-                        required
-                        v-model="item.repeat"
-                        label=" تکرار"
-                        type="number"
-                        density="compact"
-                        single-line
-                        hide-details="auto"
-                    ></v-text-field>
-                    <div class="invalid-feedback d-block">
-                        <ErrorMessage name="value" />
-                    </div>
-                </div>
+
                 <div class="col-span-2">
                     <div class="mr-4">
                         <v-btn
@@ -123,6 +128,8 @@ const props = defineProps({
     movementData: {},
     movementValues: {},
 });
+const emits = defineEmits(["add-value", "delete-value"]);
+
 const exercises = ref([]);
 const movements = ref([]);
 const searchTerm = ref("");
@@ -163,6 +170,13 @@ watch(
     },
     { immediate: true }
 );
+
+const deleteMovementValue = (item, index) => {
+    emits("delete-value", { row: item, index: index });
+};
+const handleIncMovement = (item) => {
+    emits("add-value", item);
+};
 
 onMounted(() => {
     // exercises.value = props.exerciseData;

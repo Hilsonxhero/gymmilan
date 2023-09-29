@@ -6,6 +6,7 @@ use App\Http\Controllers\Panel\ExerciseController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Panel\FormController;
+use App\Http\Controllers\Panel\FormProgramController;
 use App\Http\Controllers\Panel\MovementController;
 
 /*
@@ -32,4 +33,5 @@ Route::prefix('/panel')->group(function () {
     Route::resource('exercises', ExerciseController::class);
     Route::resource('movements', MovementController::class);
     Route::resource('forms', FormController::class);
+    Route::resource('form/{form}/programs', FormProgramController::class);
 });

@@ -11,6 +11,8 @@
                 label="انتخاب نوع تمرین"
                 :items="filteredExercises"
                 item-title="name"
+                item-value="id"
+                return-object
                 no-data-text="موردی وجود ندارد"
                 v-model="movement_value.movement_type"
             >
@@ -37,6 +39,8 @@
                 label="انتخاب حرکت"
                 :items="filteredMovements"
                 item-title="name"
+                item-value="id"
+                return-object
                 no-data-text="موردی وجود ندارد"
                 v-model="movement_value.movement"
             >
@@ -56,43 +60,120 @@
                 </template>
             </v-select>
         </div>
-        <div class="col-span-6">
-            <Field mode="passive" name="value" v-slot="{ field }" label="تعداد">
-                <v-text-field
-                    required
-                    v-bind="field"
-                    v-model="movement_value.value"
-                    label="تعداد"
-                    density="compact"
-                    single-line
-                    hide-details="auto"
-                ></v-text-field>
-            </Field>
-            <div class="invalid-feedback d-block">
-                <ErrorMessage name="value" />
-            </div>
-        </div>
-        <div class="col-span-6">
-            <Field
-                mode="passive"
-                name="value"
-                v-slot="{ field }"
-                label="دفعات تکرار"
-            >
-                <v-text-field
-                    required
-                    v-bind="field"
-                    v-model="movement_value.repeat"
-                    label="دفعات تکرار"
-                    density="compact"
-                    single-line
-                    hide-details="auto"
-                ></v-text-field>
-            </Field>
-            <div class="invalid-feedback d-block">
-                <ErrorMessage name="value" />
-            </div>
-        </div>
+        <template v-if="movement_value.movement">
+            <template v-if="movement_value.movement.is_aerobic">
+                <template v-if="movement_value.movement.is_repeater">
+                    <div class="col-span-6">
+                        <Field
+                            mode="passive"
+                            name="value"
+                            v-slot="{ field }"
+                            label="زمان به ثانیه"
+                        >
+                            <v-text-field
+                                required
+                                v-bind="field"
+                                v-model="movement_value.value"
+                                label="زمان به ثانیه"
+                                density="compact"
+                                single-line
+                                hide-details="auto"
+                            ></v-text-field>
+                        </Field>
+                        <div class="invalid-feedback d-block">
+                            <ErrorMessage name="value" />
+                        </div>
+                    </div>
+                    <div class="col-span-6">
+                        <Field
+                            mode="passive"
+                            name="value"
+                            v-slot="{ field }"
+                            label="دفعات تکرار"
+                        >
+                            <v-text-field
+                                required
+                                v-bind="field"
+                                v-model="movement_value.repeat"
+                                label="دفعات تکرار"
+                                density="compact"
+                                single-line
+                                hide-details="auto"
+                            ></v-text-field>
+                        </Field>
+                        <div class="invalid-feedback d-block">
+                            <ErrorMessage name="value" />
+                        </div>
+                    </div>
+                </template>
+                <template v-else>
+                    <div class="col-span-12">
+                        <Field
+                            mode="passive"
+                            name="value"
+                            v-slot="{ field }"
+                            label="انتخاب زمان"
+                        >
+                            <v-select
+                                v-bind="field"
+                                variant="solo-filled"
+                                label="انتخاب زمان"
+                                :items="aerobic_times"
+                                item-value="value"
+                                item-title="title"
+                                no-data-text="موردی وجود ندارد"
+                                v-model="movement_value.value"
+                            >
+                            </v-select>
+                        </Field>
+                    </div>
+                </template>
+            </template>
+            <template v-else>
+                <div class="col-span-6">
+                    <Field
+                        mode="passive"
+                        name="value"
+                        v-slot="{ field }"
+                        label="تعداد"
+                    >
+                        <v-text-field
+                            required
+                            v-bind="field"
+                            v-model="movement_value.value"
+                            label="تعداد"
+                            density="compact"
+                            single-line
+                            hide-details="auto"
+                        ></v-text-field>
+                    </Field>
+                    <div class="invalid-feedback d-block">
+                        <ErrorMessage name="value" />
+                    </div>
+                </div>
+                <div class="col-span-6">
+                    <Field
+                        mode="passive"
+                        name="value"
+                        v-slot="{ field }"
+                        label="دفعات تکرار"
+                    >
+                        <v-text-field
+                            required
+                            v-bind="field"
+                            v-model="movement_value.repeat"
+                            label="دفعات تکرار"
+                            density="compact"
+                            single-line
+                            hide-details="auto"
+                        ></v-text-field>
+                    </Field>
+                    <div class="invalid-feedback d-block">
+                        <ErrorMessage name="value" />
+                    </div>
+                </div>
+            </template>
+        </template>
     </div>
 </template>
 
@@ -109,7 +190,15 @@ const exercises = ref([]);
 const movements = ref([]);
 const searchTerm = ref("");
 const search_movement = ref("");
-
+const aerobic_times = ref([
+    { title: "4 دقیقه", value: 4 },
+    { title: "6 دقیقه", value: 6 },
+    { title: "8 دقیقه", value: 8 },
+    { title: "10 دقیقه", value: 10 },
+    { title: "12 دقیقه", value: 12 },
+    { title: "14 دقیقه", value: 14 },
+    { title: "16 دقیقه", value: 16 },
+]);
 const filteredExercises = computed(() => {
     const search = searchTerm.value.trim().toLowerCase();
     if (search === "") {

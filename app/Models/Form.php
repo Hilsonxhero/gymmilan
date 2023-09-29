@@ -25,4 +25,9 @@ class Form extends Model
         'use_duration',
         'is_payed',
     ];
+
+    public function programs()
+    {
+        return $this->hasMany(WorkoutProgram::class);
+    }
 }

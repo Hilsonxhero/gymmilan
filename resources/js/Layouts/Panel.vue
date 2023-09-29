@@ -54,9 +54,7 @@ import { onMounted, ref } from "vue";
 
 const messae = ref("ready for provide api");
 
-onMounted(() => {
-    console.log("mounted");
-});
+onMounted(() => {});
 </script>
 
 <style></style>

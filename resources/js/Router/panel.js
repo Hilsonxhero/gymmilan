@@ -53,10 +53,25 @@ export default {
             component: () => import("@/Pages/panel/forms/create.vue"),
         },
         {
-            path: "forms/manage/:id",
-            name: "panel-forms-manage",
-            component: () => import("@/Pages/panel/forms/manage.vue"),
+            path: "forms/:id/manage/exercises",
+            name: "panel-forms-exercises-index",
+            component: () => import("@/Pages/panel/forms/exercises/index.vue"),
         },
+        {
+            path: "forms/:id/manage/exercises/create",
+            name: "panel-forms-exercises-create",
+            component: () => import("@/Pages/panel/forms/exercises/create.vue"),
+        },
+        {
+            path: "forms/:id/manage/exercises/edit/:exercise",
+            name: "panel-forms-exercises-edit",
+            component: () => import("@/Pages/panel/forms/exercises/edit.vue"),
+        },
+        // {
+        //     path: "forms/manage/:id",
+        //     name: "panel-forms-exercises-edit",
+        //     component: () => import("@/Pages/panel/forms/manage.vue"),
+        // },
         {
             path: "forms/edit/:id",
             name: "panel-forms-edit",
