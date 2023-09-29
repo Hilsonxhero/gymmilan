@@ -12,8 +12,11 @@ class WorkoutProgramMovementValue extends Model
     protected $fillable = [
         'program_movement_id',
         'movement_id',
+        'exercise_id',
         'value',
         'repeat',
+        'title',
+        'practise'
     ];
 
     public function program()

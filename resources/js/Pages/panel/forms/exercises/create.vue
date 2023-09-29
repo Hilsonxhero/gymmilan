@@ -72,117 +72,51 @@
                             color="light-blue-accent-4"
                             block
                             class="mt-2"
-                            >ذخیره</v-btn
+                            >اضافه کردن تمرین</v-btn
                         >
                     </div>
                 </div>
                 <div class="col-span-12 xl:col-span-8 lg:col-span-8 px-4">
                     <template v-if="created_movements.length >= 1">
                         <div
-                            class="bg-gray-200 px-3 py-3 mb-2 rounded-lg"
+                            class="grid grid-cols-12 gap-2"
                             v-for="(movement, index) in created_movements"
                         >
-                            <template v-if="movement.type.value == '1'">
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center">
+                            <div class="col-span-10 lg:col-span-11">
+                                <div
+                                    class="bg-gray-200 px-3 py-3 mb-2 rounded-lg"
+                                >
+                                    <template v-if="movement.type.value == '1'">
                                         <div
-                                            class="text-sm text-gray-600"
-                                            v-for="(
-                                                item, j
-                                            ) in movement.movement"
-                                            :key="j"
+                                            class="flex items-center justify-between"
                                         >
-                                            <span>{{
-                                                item?.movement?.name
-                                            }}</span>
-                                            <span class="mr-1 text-gray-500"
-                                                >({{
-                                                    item?.movement_type?.name
-                                                }})</span
-                                            >
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="flex items-center mr-2"
-                                        v-for="(item, j) in movement.movement"
-                                        :key="j"
-                                    >
-                                        <template
-                                            v-if="item.movement.is_aerobic"
-                                        >
-                                            <template
-                                                v-if="item.movement.is_repeater"
-                                            >
-                                                <div class="text-sm">
-                                                    {{ item?.value }} ثانیه
-                                                </div>
-                                                <span>x</span>
-                                                <div class="text-sm">
-                                                    {{ item?.repeat }}
-                                                </div>
-                                            </template>
-                                            <template v-else>
-                                                <div class="text-sm">
-                                                    {{ item?.value }} ثانیه
-                                                </div>
-                                            </template>
-                                        </template>
-                                        <template v-else>
-                                            <div class="text-sm">
-                                                {{ item?.value }}
-                                            </div>
-                                            <span>x</span>
-                                            <div class="text-sm">
-                                                {{ item?.repeat }}
-                                            </div>
-                                        </template>
-                                    </div>
-                                </div>
-                            </template>
-                            <template v-if="movement.type.value == '2'">
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center">
-                                        <div
-                                            class="flex items-center"
-                                            v-for="(
-                                                item, j
-                                            ) in movement.movement"
-                                            :key="j"
-                                        >
-                                            <div class="text-sm text-gray-600">
-                                                <span>{{
-                                                    item.movement?.name
-                                                }}</span>
-                                                <span class="mr-1 text-gray-500"
-                                                    >(
-                                                    {{
-                                                        item?.movement_type
-                                                            ?.name
-                                                    }})</span
+                                            <div class="flex items-center">
+                                                <div
+                                                    class="text-sm text-gray-600"
+                                                    v-for="(
+                                                        item, j
+                                                    ) in movement.movement"
+                                                    :key="j"
                                                 >
-                                                <span
-                                                    class="mr-1 text-gray-800 font-bold"
-                                                    >({{ j + 1 }})</span
-                                                >
+                                                    <span>{{
+                                                        item?.movement?.name
+                                                    }}</span>
+                                                    <span
+                                                        class="mr-1 text-gray-500"
+                                                        >({{
+                                                            item?.movement_type
+                                                                ?.name
+                                                        }})</span
+                                                    >
+                                                </div>
                                             </div>
-                                            <span class="mx-2" v-if="j == 0"
-                                                >x</span
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center mr-2">
-                                        <div class="flex flex-col items-center">
                                             <div
-                                                class="flex items-center text-sm border-b-2"
+                                                class="flex items-center mr-2"
                                                 v-for="(
                                                     item, j
                                                 ) in movement.movement"
                                                 :key="j"
                                             >
-                                                <span
-                                                    class="ml-1 text-gray-800 font-bold"
-                                                    >({{ j + 1 }})</span
-                                                >
                                                 <template
                                                     v-if="
                                                         item.movement.is_aerobic
@@ -194,22 +128,14 @@
                                                                 .is_repeater
                                                         "
                                                     >
-                                                        <span
-                                                            class="flex items-center"
-                                                        >
-                                                            <span
-                                                                >{{
-                                                                    item?.value
-                                                                }}
-                                                                ثانیه</span
-                                                            >
-                                                            <span class="mx-1"
-                                                                >x</span
-                                                            >
-                                                            <span>{{
-                                                                item?.repeat
-                                                            }}</span>
-                                                        </span>
+                                                        <div class="text-sm">
+                                                            {{ item?.value }}
+                                                            ثانیه
+                                                        </div>
+                                                        <span>x</span>
+                                                        <div class="text-sm">
+                                                            {{ item?.repeat }}
+                                                        </div>
                                                     </template>
                                                     <template v-else>
                                                         <div class="text-sm">
@@ -219,120 +145,271 @@
                                                     </template>
                                                 </template>
                                                 <template v-else>
-                                                    <span
-                                                        class="flex items-center"
-                                                    >
-                                                        <span>{{
-                                                            item?.value
-                                                        }}</span>
-                                                        <span class="mx-1"
-                                                            >x</span
-                                                        >
-                                                        <span>{{
-                                                            item?.repeat
-                                                        }}</span>
-                                                    </span>
+                                                    <div class="text-sm">
+                                                        {{ item?.value }}
+                                                    </div>
+                                                    <span>x</span>
+                                                    <div class="text-sm">
+                                                        {{ item?.repeat }}
+                                                    </div>
                                                 </template>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </template>
-                            <template v-if="movement.type.value == '3'">
-                                <div class="flex items-center justify-between">
-                                    <div
-                                        class="flex items-center"
-                                        v-for="(item, j) in movement.movement"
-                                        :key="j"
-                                    >
-                                        <div class="text-sm text-gray-600">
-                                            <span>
-                                                {{ item.movement?.name }}
-                                            </span>
-                                            <span class="mr-1 text-gray-500"
-                                                >({{
-                                                    item?.movement_type?.name
-                                                }})</span
-                                            >
+                                    </template>
+                                    <template v-if="movement.type.value == '2'">
+                                        <div
+                                            class="flex items-center justify-between"
+                                        >
+                                            <div class="flex items-center">
+                                                <div
+                                                    class="flex items-center"
+                                                    v-for="(
+                                                        item, j
+                                                    ) in movement.movement"
+                                                    :key="j"
+                                                >
+                                                    <div
+                                                        class="text-sm text-gray-600"
+                                                    >
+                                                        <span>{{
+                                                            item.movement?.name
+                                                        }}</span>
+                                                        <span
+                                                            class="mr-1 text-gray-500"
+                                                            >(
+                                                            {{
+                                                                item
+                                                                    ?.movement_type
+                                                                    ?.name
+                                                            }})</span
+                                                        >
+                                                        <span
+                                                            class="mr-1 text-gray-800 font-bold"
+                                                            >({{ j + 1 }})</span
+                                                        >
+                                                    </div>
+                                                    <span
+                                                        class="mx-2"
+                                                        v-if="j == 0"
+                                                        >x</span
+                                                    >
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center mr-2">
+                                                <div
+                                                    class="flex flex-col items-center"
+                                                >
+                                                    <div
+                                                        class="flex items-center text-sm border-b-2"
+                                                        v-for="(
+                                                            item, j
+                                                        ) in movement.movement"
+                                                        :key="j"
+                                                    >
+                                                        <span
+                                                            class="ml-1 text-gray-800 font-bold"
+                                                            >({{ j + 1 }})</span
+                                                        >
+                                                        <template
+                                                            v-if="
+                                                                item.movement
+                                                                    .is_aerobic
+                                                            "
+                                                        >
+                                                            <template
+                                                                v-if="
+                                                                    item
+                                                                        .movement
+                                                                        .is_repeater
+                                                                "
+                                                            >
+                                                                <span
+                                                                    class="flex items-center"
+                                                                >
+                                                                    <span
+                                                                        >{{
+                                                                            item?.value
+                                                                        }}
+                                                                        ثانیه</span
+                                                                    >
+                                                                    <span
+                                                                        class="mx-1"
+                                                                        >x</span
+                                                                    >
+                                                                    <span>{{
+                                                                        item?.repeat
+                                                                    }}</span>
+                                                                </span>
+                                                            </template>
+                                                            <template v-else>
+                                                                <div
+                                                                    class="text-sm"
+                                                                >
+                                                                    {{
+                                                                        item?.value
+                                                                    }}
+                                                                    ثانیه
+                                                                </div>
+                                                            </template>
+                                                        </template>
+                                                        <template v-else>
+                                                            <span
+                                                                class="flex items-center"
+                                                            >
+                                                                <span>{{
+                                                                    item?.value
+                                                                }}</span>
+                                                                <span
+                                                                    class="mx-1"
+                                                                    >x</span
+                                                                >
+                                                                <span>{{
+                                                                    item?.repeat
+                                                                }}</span>
+                                                            </span>
+                                                        </template>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div
-                                        class="flex items-center mr-2"
-                                        v-for="(item, j) in movement.movement"
-                                        :key="j"
-                                    >
-                                        <div class="flex flex-col items-center">
+                                    </template>
+                                    <template v-if="movement.type.value == '3'">
+                                        <div
+                                            class="flex items-center justify-between"
+                                        >
                                             <div
-                                                class="flex items-center text-sm border-b-2"
+                                                class="flex items-center"
                                                 v-for="(
-                                                    movement_value, k
-                                                ) in item.values"
-                                                :key="k"
+                                                    item, j
+                                                ) in movement.movement"
+                                                :key="j"
                                             >
-                                                <!-- <span
+                                                <div
+                                                    class="text-sm text-gray-600"
+                                                >
+                                                    <span>
+                                                        {{
+                                                            item.movement?.name
+                                                        }}
+                                                    </span>
+                                                    <span
+                                                        class="mr-1 text-gray-500"
+                                                        >({{
+                                                            item?.movement_type
+                                                                ?.name
+                                                        }})</span
+                                                    >
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="flex items-center mr-2"
+                                                v-for="(
+                                                    item, j
+                                                ) in movement.movement"
+                                                :key="j"
+                                            >
+                                                <div
+                                                    class="flex flex-col items-center"
+                                                >
+                                                    <div
+                                                        class="flex items-center text-sm border-b-2"
+                                                        v-for="(
+                                                            movement_value, k
+                                                        ) in item.values"
+                                                        :key="k"
+                                                    >
+                                                        <!-- <span
                                                 class="ml-1 text-gray-800 font-bold"
                                                 >(1)</span
                                             > -->
-                                                <span>{{
-                                                    movement_value.value
-                                                }}</span>
+                                                        <span>{{
+                                                            movement_value.value
+                                                        }}</span>
+                                                    </div>
+                                                </div>
+                                                <span class="mx-1">x</span>
+                                                <div class="text-sm">
+                                                    {{ item.repeat }}
+                                                </div>
                                             </div>
                                         </div>
-                                        <span class="mx-1">x</span>
-                                        <div class="text-sm">
-                                            {{ item.repeat }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </template>
-                            <template v-if="movement.type.value == '4'">
-                                <div class="flex items-center justify-between">
-                                    <div
-                                        class="flex items-center"
-                                        v-for="(item, j) in movement.movement"
-                                        :key="j"
-                                    >
-                                        <div class="text-sm text-gray-600">
-                                            <span>
-                                                {{ item.movement?.name }}</span
-                                            >
-                                            <span class="mr-1 text-gray-500"
-                                                >(
-                                                {{
-                                                    item?.movement_type?.name
-                                                }})</span
-                                            >
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="flex items-center mr-2"
-                                        v-for="(item, j) in movement.movement"
-                                        :key="j"
-                                    >
+                                    </template>
+                                    <template v-if="movement.type.value == '4'">
                                         <div
-                                            v-for="(
-                                                movement_value, k
-                                            ) in item.values"
-                                            :key="k"
-                                            class="flex items-center zzz"
+                                            class="flex items-center justify-between"
                                         >
-                                            <span class="mx-2 divider-value"
-                                                >/</span
-                                            >
                                             <div
-                                                class="text-sm flex flex-col items-center"
+                                                class="flex items-center"
+                                                v-for="(
+                                                    item, j
+                                                ) in movement.movement"
+                                                :key="j"
                                             >
-                                                <span class="border-b-2">{{
-                                                    movement_value.value
-                                                }}</span>
-                                                <span>{{
-                                                    movement_value.repeat
-                                                }}</span>
+                                                <div
+                                                    class="text-sm text-gray-600"
+                                                >
+                                                    <span>
+                                                        {{
+                                                            item.movement?.name
+                                                        }}</span
+                                                    >
+                                                    <span
+                                                        class="mr-1 text-gray-500"
+                                                        >(
+                                                        {{
+                                                            item?.movement_type
+                                                                ?.name
+                                                        }})</span
+                                                    >
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="flex items-center mr-2"
+                                                v-for="(
+                                                    item, j
+                                                ) in movement.movement"
+                                                :key="j"
+                                            >
+                                                <div
+                                                    v-for="(
+                                                        movement_value, k
+                                                    ) in item.values"
+                                                    :key="k"
+                                                    class="flex items-center zzz"
+                                                >
+                                                    <span
+                                                        class="mx-2 divider-value"
+                                                        >/</span
+                                                    >
+                                                    <div
+                                                        class="text-sm flex flex-col items-center"
+                                                    >
+                                                        <span
+                                                            class="border-b-2"
+                                                            >{{
+                                                                movement_value.value
+                                                            }}</span
+                                                        >
+                                                        <span>{{
+                                                            movement_value.repeat
+                                                        }}</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </template>
                                 </div>
-                            </template>
+                            </div>
+                            <div class="col-span-2 lg:col-span-1">
+                                <v-btn
+                                    @click="
+                                        deleteCreatedMovement(movement, index)
+                                    "
+                                    size="small"
+                                    density="default"
+                                    icon="mdi-trash-can-outline"
+                                ></v-btn>
+                            </div>
                         </div>
                     </template>
                     <template v-else>
@@ -343,6 +420,7 @@
                 <div class="col-span-12 mt-8">
                     <div>
                         <v-btn
+                            :loading="loader"
                             @click="handleSubmit"
                             size="large"
                             block
@@ -364,11 +442,13 @@ import NormalMovement from "@/Components/Movenment/Normal.vue";
 import SuperSetMovement from "@/Components/Movenment/SuperSet.vue";
 import DropSetMovement from "@/Components/Movenment/DropSet.vue";
 import PyramidalMovement from "@/Components/Movenment/Pyramidal.vue";
+import { useRoute, useRouter } from "vue-router";
+const loader = ref(false);
 const exercises = ref([]);
 const movements = ref([]);
-const searchTerm = ref("");
+const route = useRoute();
+const router = useRouter();
 const created_movements = ref([]);
-const search_movement = ref("");
 const types = ref([
     { state: "عادی", value: "1" },
     { state: "سوپر ست", value: "2" },
@@ -386,26 +466,7 @@ const form = ref({
     class: { state: "A", value: "1" },
     type: { state: "عادی", value: "1" },
 });
-const filteredExercises = computed(() => {
-    const search = searchTerm.value.trim().toLowerCase();
-    if (search === "") {
-        return exercises.value;
-    } else {
-        return exercises.value.filter((exercise) =>
-            exercise.name.toLowerCase().includes(search)
-        );
-    }
-});
-const filteredMovements = computed(() => {
-    const search = search_movement.value.trim().toLowerCase();
-    if (search === "") {
-        return movements.value;
-    } else {
-        return movements.value.filter((movement) =>
-            movement.name.toLowerCase().includes(search)
-        );
-    }
-});
+
 const movement_values = ref([
     {
         value: "",
@@ -415,6 +476,10 @@ const movement_values = ref([
         values: [{ value: "", repeat: "" }],
     },
 ]);
+
+const deleteCreatedMovement = (item, index) => {
+    created_movements.value.splice(index, 1);
+};
 
 const handleSaveMovement = () => {
     created_movements.value.push({
@@ -514,6 +579,26 @@ const fetchData = async () => {
     exercises.value = data.data;
     const { data: response } = await ApiService.get("/api/panel/movements");
     movements.value = response.data;
+};
+
+const handleSubmit = async () => {
+    try {
+        loader.value = true;
+        const payload = {
+            class: form.value.class.value,
+            form_id: route.params.id,
+            programs: created_movements.value,
+        };
+        const { data } = await ApiService.post(
+            `/api/panel/form/1/programs`,
+            payload
+        );
+        loader.value = false;
+
+        if (data.success) {
+            router.push({ name: "panel-forms-exercises-index" });
+        }
+    } catch (error) {}
 };
 onMounted(() => {
     fetchData();

@@ -24,7 +24,12 @@
                 <tbody>
                     <tr v-for="item in programs" :key="item.id">
                         <td>{{ item.id }}</td>
-                        <td>{{ item.class }}</td>
+                        <td>
+                            <template v-if="item.class == 1">A</template>
+                            <template v-if="item.class == 2">B</template>
+                            <template v-if="item.class == 3">C</template>
+                            <template v-if="item.class == 4">D</template>
+                        </td>
                         <td>
                             <div class="flex items-center">
                                 <v-btn
