@@ -27,6 +27,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 Route::prefix('/auth')->group(function () {
     Route::post("login", [AuthenticatedSessionController::class, 'store']);
     Route::post('/register', [RegisteredUserController::class, 'store']);
+    Route::post("logout", [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:sanctum');
 });
 
 Route::prefix('/panel')->group(function () {

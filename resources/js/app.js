@@ -4,6 +4,7 @@ import '../css/master.css';
 import { createApp, h } from 'vue';
 import router from "./Router";
 import ApiService from "@/Core/services/ApiService";
+import { createPinia } from "pinia";
 
 import app from "./Layouts/App.vue";
 import '@mdi/font/css/materialdesignicons.css'
@@ -25,6 +26,6 @@ const vuetify = createVuetify({
 })
 ApiService.init(app);
 initVeeValidate(app)
-const init = createApp(app).use(vuetify).use(router);
+const init = createApp(app).use(vuetify).use(createPinia()).use(router);
 
 init.mount("#app");

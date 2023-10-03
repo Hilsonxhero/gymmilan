@@ -9,10 +9,15 @@
             <template v-slot:prepend>
                 <v-list-item
                     lines="two"
-                    prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg"
-                    title="کیان دقانی ن"
+                    prepend-avatar="/panel/media/avatars/blank.png"
+                    title="کیان دقانی نیا"
                     subtitle="کاربر ادمین"
                 ></v-list-item>
+            </template>
+            <template v-slot:append>
+                <div class="pa-2">
+                    <v-btn @click="signOut" block> خروج از حساب کاربری </v-btn>
+                </div>
             </template>
 
             <v-divider></v-divider>
@@ -62,9 +67,19 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { useDisplay } from "vuetify";
+import { useAuthStore, type User } from "@/stores/auth";
+import { useRouter } from "vue-router";
+const router = useRouter();
+const store = useAuthStore();
+
 const { mobile, smAndDown, mdAndDown } = useDisplay();
 
 const drawer = ref(true);
+const signOut = () => {
+    store.logout().then(() => {
+        router.push({ name: "auth-login" });
+    });
+};
 onMounted(() => {
     if (mobile.value) {
         drawer.value = false;

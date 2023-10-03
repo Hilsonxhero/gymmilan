@@ -1,7 +1,7 @@
 export default {
     path: "/panel",
     meta: {
-        auth: true,
+        middleware: "auth",
     },
     component: () => import("@/Layouts/Panel.vue"),
     children: [
