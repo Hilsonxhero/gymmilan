@@ -1,6 +1,11 @@
 <template>
     <v-layout>
-        <v-navigation-drawer permanent location="right">
+        <v-navigation-drawer
+            :temporary="mobile"
+            :permanent="!mobile"
+            v-model="drawer"
+            location="right"
+        >
             <template v-slot:prepend>
                 <v-list-item
                     lines="two"
@@ -41,7 +46,12 @@
                 ></v-list-item>
             </v-list>
         </v-navigation-drawer>
-        <v-app-bar title=""></v-app-bar>
+        <v-app-bar title="">
+            <v-app-bar-nav-icon
+                variant="text"
+                @click.stop="drawer = !drawer"
+            ></v-app-bar-nav-icon>
+        </v-app-bar>
         <v-main>
             <div class="p-5">
                 <router-view></router-view>
@@ -51,10 +61,15 @@
 </template>
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
+import { useDisplay } from "vuetify";
+const { mobile, smAndDown, mdAndDown } = useDisplay();
 
-const messae = ref("ready for provide api");
-
-onMounted(() => {});
+const drawer = ref(true);
+onMounted(() => {
+    if (mobile.value) {
+        drawer.value = false;
+    }
+});
 </script>
 
 <style></style>

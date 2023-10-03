@@ -1,17 +1,27 @@
 <template>
     <div>
-        <div class="form-detail-module mx-auto p-6">
+        <section class="mb-4">
+            <div class="flex justify-end">
+                <v-btn
+                    :loading="loader"
+                    color="light-blue-accent-4"
+                    type="submit"
+                    class="mt-2"
+                    @click="convertToPdf"
+                    >دانلود فایل
+                </v-btn>
+            </div>
+        </section>
+        <div class="form-detail-module mx-auto p-6" ref="formRef">
             <div class="grid grid-cols-12 gap-x-8 mb-2">
                 <div class="col-span-6">
-                    <div
-                        class="flex items-center border-b-2 pb-2 border-gray-700 pl-8"
-                    >
-                        <div class="max-w-[260px]">
+                    <div class="flex items-center pl-8 mb-2">
+                        <div class="max-w-[230px]">
                             <div class="text-[28px] leading-7 font-semibold">
                                 باشگاه تناسب اندام و بدنسازی میلان
                             </div>
                         </div>
-                        <div class="mr-3">
+                        <div class="mr-3 -mb-2">
                             <img
                                 class="form-detail-logo"
                                 src="/panel/media/logo.jpg"
@@ -19,23 +29,26 @@
                             />
                         </div>
                     </div>
+                    <div
+                        class="border-b-2 pb-2 mt-1 pt-1 border-gray-600"
+                    ></div>
                 </div>
                 <div class="col-span-6">
-                    <ul class="list-decimal">
+                    <ul>
                         <li class="text-sm text-gray-800">
-                            حین تمرین از مچ بند،کمربند،لوازم ایمنی تمرین استفاده
-                            کنید
+                            1. حین تمرین از مچ بند،کمربند،لوازم ایمنی تمرین
+                            استفاده کنید
                         </li>
                         <li class="text-sm text-gray-800">
-                            حین تمرین جرعه جرعه آب بنوشید
+                            2. حین تمرین جرعه جرعه آب بنوشید
                         </li>
                         <li class="text-sm text-gray-800 whitespace-nowrap">
-                            گرم و سرد کردن بدن قبل و بعد از تمرین 8 دقیقه الزامی
-                            است.
+                            3. گرم و سرد کردن بدن قبل و بعد از تمرین 8 دقیقه
+                            الزامی است.
                         </li>
                         <li class="text-sm text-gray-800">
-                            جهت گرفتن برنامه بعدی این برنامه را به همراه داشته
-                            باشید.
+                            4. جهت گرفتن برنامه بعدی این برنامه را به همراه
+                            داشته باشید.
                         </li>
                     </ul>
                 </div>
@@ -106,7 +119,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex items-center mb-1">
+            <div class="flex items-center pb-1">
                 <div>با مدیریت و مربیگری رسمی فدراسیون‌: کیان دهقانی نیا</div>
                 <div class="mr-6 flex items-center grow">
                     <div class="ml-2">gymmilan</div>
@@ -130,7 +143,7 @@
                 </div>
             </div>
             <div
-                class="form-detail-module__items border-2 border-gray-900 grid grid-cols-12"
+                class="form-detail-module__items border-2 border-gray-900 grid grid-cols-12 mt-3"
             >
                 <div
                     class="border-2 border-gray-900 h-[430px] col-span-6"
@@ -146,14 +159,16 @@
 
                     <div class="px-3">
                         <div
-                            class="border-b py-1 border-gray-800"
+                            class="border-b py-[2px] border-gray-800"
                             v-for="(movement, index) in program.movement"
                         >
                             <template v-if="movement.type == '1'">
-                                <div class="flex items-center justify-between">
+                                <div
+                                    class="flex items-center justify-between mb-1"
+                                >
                                     <div class="flex items-center">
                                         <div
-                                            class="text-sm text-gray-600 flex items-center"
+                                            class="text-sm font-bold flex items-center"
                                             v-for="(
                                                 item, j
                                             ) in movement.movement"
@@ -169,42 +184,55 @@
                                             >
                                         </div>
                                     </div>
-                                    <div
-                                        class="flex items-center mr-2"
-                                        v-for="(item, j) in movement.movement"
-                                        :key="j"
-                                    >
-                                        <template
-                                            v-if="item.movement.is_aerobic"
+                                    <div class="mr-2">
+                                        <div
+                                            class="flex items-center"
+                                            v-for="(
+                                                item, j
+                                            ) in movement.movement"
+                                            :key="j"
                                         >
                                             <template
-                                                v-if="item.movement.is_repeater"
+                                                v-if="item.movement.is_aerobic"
                                             >
-                                                <div class="text-sm">
-                                                    {{ item?.value }}
-                                                    ثانیه
-                                                </div>
-                                                <span>x</span>
-                                                <div class="text-sm">
-                                                    {{ item?.repeat }}
-                                                </div>
+                                                <template
+                                                    v-if="
+                                                        item.movement
+                                                            .is_repeater
+                                                    "
+                                                >
+                                                    <div class="text-sm">
+                                                        {{ item?.value }}
+                                                        ثانیه
+                                                    </div>
+                                                    <span>x</span>
+                                                    <div class="text-sm">
+                                                        {{ item?.repeat }}
+                                                    </div>
+                                                </template>
+                                                <template v-else>
+                                                    <div class="text-sm">
+                                                        {{ item?.value }}
+                                                        ثانیه
+                                                    </div>
+                                                </template>
                                             </template>
                                             <template v-else>
-                                                <div class="text-sm">
+                                                <div class="text-sm font-bold">
                                                     {{ item?.value }}
-                                                    ثانیه
+                                                </div>
+                                                <span>x</span>
+                                                <div class="text-sm font-bold">
+                                                    {{ item?.repeat }}
+                                                </div>
+                                                <div
+                                                    class="font-bold mr-1"
+                                                    v-if="item?.practise >= 1"
+                                                >
+                                                    / {{ item?.practise }}
                                                 </div>
                                             </template>
-                                        </template>
-                                        <template v-else>
-                                            <div class="text-sm">
-                                                {{ item?.value }}
-                                            </div>
-                                            <span>x</span>
-                                            <div class="text-sm">
-                                                {{ item?.repeat }}
-                                            </div>
-                                        </template>
+                                        </div>
                                     </div>
                                 </div>
                             </template>
@@ -218,18 +246,11 @@
                                             ) in movement.movement"
                                             :key="j"
                                         >
-                                            <div class="text-sm text-gray-600">
+                                            <div class="text-sm font-bold">
                                                 <span class="">{{
                                                     item.movement?.name
                                                 }}</span>
-                                                <!-- <span
-                                                    class="mr-1 text-gray-500 text-xs"
-                                                    >(
-                                                    {{
-                                                        item?.movement_type
-                                                            ?.name
-                                                    }})
-                                                </span> -->
+
                                                 <span
                                                     class="mr-1 text-gray-800 font-bold"
                                                     >({{ j + 1 }})</span
@@ -240,72 +261,7 @@
                                             >
                                         </div>
                                     </div>
-                                    <!-- <div class="flex items-center mr-2">
-                                        <div class="flex flex-col items-center">
-                                            <div
-                                                class="flex items-center text-sm border-b-2"
-                                                v-for="(
-                                                    item, j
-                                                ) in movement.movement"
-                                                :key="j"
-                                            >
-                                                <span
-                                                    class="ml-1 text-gray-800 font-bold"
-                                                    >({{ j + 1 }})</span
-                                                >
-                                                <template
-                                                    v-if="
-                                                        item.movement.is_aerobic
-                                                    "
-                                                >
-                                                    <template
-                                                        v-if="
-                                                            item.movement
-                                                                .is_repeater
-                                                        "
-                                                    >
-                                                        <span
-                                                            class="flex items-center"
-                                                        >
-                                                            <span
-                                                                >{{
-                                                                    item?.value
-                                                                }}
-                                                                ثانیه</span
-                                                            >
-                                                            <span class="mx-1"
-                                                                >x</span
-                                                            >
-                                                            <span>{{
-                                                                item?.repeat
-                                                            }}</span>
-                                                        </span>
-                                                    </template>
-                                                    <template v-else>
-                                                        <div class="text-sm">
-                                                            {{ item?.value }}
-                                                            ثانیه
-                                                        </div>
-                                                    </template>
-                                                </template>
-                                                <template v-else>
-                                                    <span
-                                                        class="flex items-center"
-                                                    >
-                                                        <span>{{
-                                                            item?.value
-                                                        }}</span>
-                                                        <span class="mx-1"
-                                                            >x</span
-                                                        >
-                                                        <span>{{
-                                                            item?.repeat
-                                                        }}</span>
-                                                    </span>
-                                                </template>
-                                            </div>
-                                        </div>
-                                    </div> -->
+
                                     <div class="flex items-center mr-2">
                                         <div>
                                             <div
@@ -318,6 +274,10 @@
                                                 <div
                                                     class="flex items-center text-sm border-b-2"
                                                 >
+                                                    <span
+                                                        class="ml-1 text-gray-800 font-bold"
+                                                        >({{ j + 1 }})</span
+                                                    >
                                                     <span>{{
                                                         item.value
                                                     }}</span>
@@ -339,7 +299,7 @@
                                         v-for="(item, j) in movement.movement"
                                         :key="j"
                                     >
-                                        <div class="text-sm text-gray-600">
+                                        <div class="text-sm font-bold">
                                             <span>
                                                 {{ item.movement?.name }}
                                             </span>
@@ -382,7 +342,7 @@
                                         v-for="(item, j) in movement.movement"
                                         :key="j"
                                     >
-                                        <div class="text-sm text-gray-600">
+                                        <div class="text-sm font-bold">
                                             <span>
                                                 {{ item.movement?.name }}</span
                                             >
@@ -406,8 +366,8 @@
                                             :key="k"
                                             class="flex items-center zzz"
                                         >
-                                            <span class="mx-2 divider-value"
-                                                >/</span
+                                            <span class="mx-1 divider-value"
+                                                >-</span
                                             >
                                             <div
                                                 class="text-sm flex flex-col items-center"
@@ -415,10 +375,14 @@
                                                 <span class="border-b-2">{{
                                                     movement_value.value
                                                 }}</span>
-                                                <span>{{
+                                                <!-- <span>{{
                                                     movement_value.repeat
-                                                }}</span>
+                                                }}</span> -->
                                             </div>
+                                        </div>
+                                        <div class="font-bold mr-1">
+                                            /
+                                            {{ item?.practise }}
                                         </div>
                                     </div>
                                 </div>
@@ -436,6 +400,9 @@ import { onMounted } from "vue";
 import { ref } from "vue";
 import ApiService from "@/Core/services/ApiService";
 import { useRoute } from "vue-router";
+import html2pdf from "html2pdf.js";
+const formRef = ref(null);
+const loader = ref(false);
 const route = useRoute();
 const form_programs = ref([
     { class: "1", movement: [] },
@@ -529,6 +496,36 @@ const fetchData = async () => {
         });
         // form_programs.value[j] = formated_movement;
     });
+};
+
+const convertToPdf = () => {
+    loader.value = true;
+    const element = formRef.value.cloneNode(true);
+    element.classList.add("invoice-container");
+    var opt = {
+        // margin: 0,
+        filename: `form.pdf`,
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 1 },
+        jsPDF: { unit: "in", format: "a4", orientation: "p" },
+    };
+    // html2pdf()
+    //     .set(opt)
+    //     .from(element)
+    //     .then(() => {
+    //         loader.value = false;
+    //     })
+    //     .save();
+
+    html2pdf()
+        .set(opt)
+        .from(element)
+        .toPdf()
+        .get("pdf")
+        .then(function (pdf) {
+            loader.value = false;
+            window.open(pdf.output("bloburl"), "_blank");
+        });
 };
 
 onMounted(() => {

@@ -51,6 +51,7 @@
                                         name: 'panel-forms-detail',
                                         params: { id: item.id },
                                     }"
+                                    class="mr-4"
                                     prepend-icon="mdi-printer-outline"
                                 >
                                     چاپ
