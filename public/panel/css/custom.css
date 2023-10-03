@@ -85,3 +85,7 @@ html {
 .arrow-icon {
     transform: rotate(180deg);
 }
+
+.dir-ltr {
+    direction: ltr !important;
+}

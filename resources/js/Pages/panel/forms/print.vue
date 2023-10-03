@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="hidden">
         <section class="mb-4">
             <div class="flex justify-end">
                 <v-btn
@@ -380,10 +380,7 @@
                                                 }}</span> -->
                                             </div>
                                         </div>
-                                        <div
-                                            class="font-bold mr-1"
-                                            v-if="item?.practise >= 1"
-                                        >
+                                        <div class="font-bold mr-1">
                                             /
                                             {{ item?.practise }}
                                         </div>
@@ -402,11 +399,12 @@
 import { onMounted } from "vue";
 import { ref } from "vue";
 import ApiService from "@/Core/services/ApiService";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import html2pdf from "html2pdf.js";
 const formRef = ref(null);
 const loader = ref(false);
 const route = useRoute();
+const router = useRouter();
 const form_programs = ref([
     { class: "1", movement: [] },
     { class: "2", movement: [] },
@@ -507,20 +505,40 @@ const convertToPdf = () => {
     element.classList.add("invoice-container");
     var opt = {
         // margin: 0,
-        filename: `form.pdf`,
+        filename: `${form.value.id}.pdf`,
         image: { type: "jpeg", quality: 0.98 },
         html2canvas: { scale: 1 },
         jsPDF: { unit: "in", format: "a4", orientation: "p" },
     };
+
+    if (route.query.download) {
+        html2pdf()
+            .set(opt)
+            .from(element)
+            .then(() => {
+                loader.value = false;
+                router.push({ name: "panel-forms-index" });
+            })
+            .save();
+    } else {
+        html2pdf()
+            .set(opt)
+            .from(element)
+            .toPdf()
+            .get("pdf")
+            .then(function (pdf) {
+                loader.value = false;
+                window.open(pdf.output("bloburl"), "_blank");
+                router.push({ name: "panel-forms-index" });
+            });
+    }
 };
 
 onMounted(() => {
-    fetchData().then(() => {});
+    fetchData().then(() => {
+        convertToPdf();
+    });
 });
 </script>
 
-<style>
-.dir-ltr {
-    direction: ltr !important;
-}
-</style>
+<style scoped></style>

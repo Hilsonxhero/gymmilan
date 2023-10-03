@@ -28,9 +28,21 @@
                 <tbody>
                     <tr v-for="item in forms" :key="item.id">
                         <td>{{ item.id }}</td>
-                        <td>{{ item.first_name }}</td>
-                        <td>{{ item.last_name }}</td>
-                        <td>{{ item.mobile }}</td>
+                        <td>
+                            <div class="whitespace-nowrap">
+                                {{ item.first_name }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="whitespace-nowrap">
+                                {{ item.last_name }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="whitespace-nowrap">
+                                {{ item.mobile }}
+                            </div>
+                        </td>
                         <td>{{ item.height }}</td>
                         <td>{{ item.weight }}</td>
                         <td>{{ item.age }}</td>
@@ -48,13 +60,24 @@
                                 </v-btn>
                                 <v-btn
                                     :to="{
-                                        name: 'panel-forms-detail',
+                                        name: 'panel-forms-print',
                                         params: { id: item.id },
                                     }"
                                     class="mr-4"
                                     prepend-icon="mdi-printer-outline"
                                 >
                                     چاپ
+                                </v-btn>
+                                <v-btn
+                                    :to="{
+                                        name: 'panel-forms-print',
+                                        params: { id: item.id },
+                                        query: { download: true },
+                                    }"
+                                    class="mr-4"
+                                    prepend-icon="mdi-printer-outline"
+                                >
+                                    دانلود
                                 </v-btn>
                                 <v-btn
                                     :to="{

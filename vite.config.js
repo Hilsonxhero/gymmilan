@@ -7,7 +7,10 @@ import { resolve } from "path";
 export default defineConfig({
     plugins: [
         laravel({
-            input: 'resources/js/app.js',
+            input: [
+                'resources/js/app.css',
+                'resources/js/app.js',
+            ],
             refresh: true,
         }),
         vue({
@@ -32,5 +35,12 @@ export default defineConfig({
         watch: {
             usePolling: true
         }
+    },
+    build: {
+        manifest: true,
+        outDir: 'public/build',
+        rollupOptions: {
+            input: 'resources/js/app.js',
+        },
     },
 });

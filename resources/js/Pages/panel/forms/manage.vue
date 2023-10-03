@@ -271,7 +271,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="flex items-center mr-2"
+                                    class="flex items-center mr-2 dir-ltr"
                                     v-for="(item, j) in movement.movement"
                                     :key="j"
                                 >

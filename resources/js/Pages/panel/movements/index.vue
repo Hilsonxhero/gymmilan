@@ -18,24 +18,30 @@
             </thead>
             <tbody>
                 <tr v-for="item in movements" :key="item.name">
-                    <td>{{ item.name }}</td>
                     <td>
-                        <v-btn
-                            :to="{
-                                name: 'panel-movements-edit',
-                                params: { id: item.id },
-                            }"
-                            prepend-icon="mdi-pencil-box-outline"
-                        >
-                            ویرایش
-                        </v-btn>
-                        <v-btn
-                            @click="handleShowDeleteMessage(item)"
-                            prepend-icon="mdi-trash-can-outline"
-                            class="mr-4"
-                        >
-                            حذف
-                        </v-btn>
+                        <div class="whitespace-nowrap">
+                            {{ item.name }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex items-center">
+                            <v-btn
+                                :to="{
+                                    name: 'panel-movements-edit',
+                                    params: { id: item.id },
+                                }"
+                                prepend-icon="mdi-pencil-box-outline"
+                            >
+                                ویرایش
+                            </v-btn>
+                            <v-btn
+                                @click="handleShowDeleteMessage(item)"
+                                prepend-icon="mdi-trash-can-outline"
+                                class="mr-4"
+                            >
+                                حذف
+                            </v-btn>
+                        </div>
                     </td>
                 </tr>
             </tbody>

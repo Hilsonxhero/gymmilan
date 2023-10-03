@@ -96,3 +96,12 @@ select {
 .zzz:first-of-type > .divider-value {
     display: none !important;
 }
+@media only screen and (max-width: 767px) {
+    .login-card {
+        margin: 1rem !important;
+    }
+}
+
+.dir-ltr {
+    direction: ltr !important;
+}

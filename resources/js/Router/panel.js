@@ -77,5 +77,10 @@ export default {
             name: "panel-forms-detail",
             component: () => import("@/Pages/panel/forms/detail.vue"),
         },
+        {
+            path: "forms/print/:id",
+            name: "panel-forms-print",
+            component: () => import("@/Pages/panel/forms/print.vue"),
+        },
     ],
 };

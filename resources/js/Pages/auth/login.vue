@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="login-card">
         <v-img
             class="mx-auto my-6"
             max-width="128"
