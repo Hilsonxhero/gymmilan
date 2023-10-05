@@ -16,7 +16,7 @@ class UserTableSeeder extends Seeder
         \App\Models\User::factory()->create([
             'name' => 'مربی باشگاه',
             'email' => 'admin@info.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make('4030@Asv'),
             'is_superuser' => true
         ]);
     }
